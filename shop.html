@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>SAVAGE SHOP</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
+
+
+<style>
+
+/* BODY */
+
+body{
+
+margin:0;
+
+background:black;
+
+font-family:Arial;
+
+color:white;
+
+}
+
+
+/* HEADER */
+
+header{
+
+background:black;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px 55px;
+
+position:sticky;
+
+top:0;
+
+z-index:1000;
+
+border-bottom:2px solid white;
+
+}
+
+
+/* LOGO */
+
+.logo{
+
+height:85px;
+
+}
+
+
+/* NAV */
+
+nav a{
+
+color:white;
+
+text-decoration:none;
+
+margin-left:30px;
+
+letter-spacing:1px;
+
+}
+
+
+nav a:hover{
+
+color:red;
+
+}
+
+
+/* TOP MESSAGE STRIP */
+
+.top-message{
+
+text-align:center;
+
+font-family:'Oswald';
+
+letter-spacing:4px;
+
+font-size:28px;
+
+padding:25px;
+
+background:black;
+
+border-bottom:2px solid white;
+
+}
+
+
+/* PRODUCT GRID */
+
+.products{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:40px;
+
+padding:60px;
+
+}
+
+
+/* PRODUCT CARD */
+
+.product{
+
+text-align:center;
+
+background:#111;
+
+padding:25px;
+
+}
+
+
+.product img{
+
+width:100%;
+
+max-width:320px;
+
+}
+
+
+.product h2{
+
+font-family:'Oswald';
+
+letter-spacing:2px;
+
+}
+
+
+select{
+
+padding:8px;
+
+margin-top:10px;
+
+}
+
+
+button{
+
+margin-top:15px;
+
+padding:12px 30px;
+
+background:red;
+
+border:none;
+
+color:white;
+
+cursor:pointer;
+
+letter-spacing:2px;
+
+}
+
+
+button:hover{
+
+background:black;
+
+border:2px solid white;
+
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<header>
+
+<img src="savage-logo.png" class="logo">
+
+
+<nav>
+
+<a href="index.html">HOME</a>
+
+<a href="cart.html">CART</a>
+
+</nav>
+
+
+</header>
+
+
+
+<div class="top-message">
+
+BUY NOW AND JOIN THE WAVE
+
+</div>
+
+
+
+<section class="products">
+
+
+
+<div class="product">
+
+<img src="blacktee.png">
+
+<h2>BLACK SAVAGE TEE</h2>
+
+<p>₦25,000</p>
+
+<select id="size1">
+
+<option>S</option>
+
+<option>M</option>
+
+<option>L</option>
+
+<option>XL</option>
+
+<option>XXL</option>
+
+<option>3XL</option>
+
+</select>
+
+<br>
+
+<button onclick="addToCart('BLACK SAVAGE TEE','blacktee.png','size1',25000)">
+
+ADD TO CART
+
+</button>
+
+</div>
+
+
+
+
+<div class="product">
+
+<img src="redtee.png">
+
+<h2>RED SAVAGE TEE</h2>
+
+<p>₦25,000</p>
+
+<select id="size2">
+
+<option>S</option>
+
+<option>M</option>
+
+<option>L</option>
+
+<option>XL</option>
+
+<option>XXL</option>
+
+<option>3XL</option>
+
+</select>
+
+<br>
+
+<button onclick="addToCart('RED SAVAGE TEE','redtee.png','size2',25000)">
+
+ADD TO CART
+
+</button>
+
+</div>
+
+
+
+
+<div class="product">
+
+<img src="redbabytee.png">
+
+<h2>RED SAVAGE BABY TEE</h2>
+
+<p>₦20,000</p>
+
+<select id="size3">
+
+<option>S</option>
+
+<option>M</option>
+
+<option>L</option>
+
+<option>XL</option>
+
+<option>XXL</option>
+
+<option>3XL</option>
+
+</select>
+
+<br>
+
+<button onclick="addToCart('RED SAVAGE BABY TEE','redbabytee.png','size3',20000)">
+
+ADD TO CART
+
+</button>
+
+</div>
+
+
+
+
+<div class="product">
+
+<img src="blackbabytee.png">
+
+<h2>BLACK SAVAGE BABY TEE</h2>
+
+<p>₦20,000</p>
+
+<select id="size4">
+
+<option>S</option>
+
+<option>M</option>
+
+<option>L</option>
+
+<option>XL</option>
+
+<option>XXL</option>
+
+<option>3XL</option>
+
+</select>
+
+<br>
+
+<button onclick="addToCart('BLACK SAVAGE BABY TEE','blackbabytee.png','size4',20000)">
+
+ADD TO CART
+
+</button>
+
+</div>
+
+
+
+</section>
+
+
+
+<script>
+
+function addToCart(name,image,sizeId,price){
+
+let size=document.getElementById(sizeId).value;
+
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+
+cart.push({
+
+name:name,
+
+image:image,
+
+size:size,
+
+price:price
+
+});
+
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+
+alert(name+" added to cart");
+
+}
+
+</script>
+
+
+
+</body>
+
+</html>

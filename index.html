@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>SAVAGE</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- STREETWEAR STYLE FONT -->
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
+
+
+<style>
+
+/* RESET */
+
+body{
+
+margin:0;
+
+font-family:Arial, sans-serif;
+
+background:black;
+
+}
+
+
+/* HEADER */
+
+header{
+
+background:black;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:18px 55px;
+
+position:fixed;
+
+top:0;
+
+width:100%;
+
+z-index:1000;
+
+}
+
+
+/* SAVAGE LOGO (BALANCED SIZE) */
+
+.logo{
+
+height:85px;
+
+}
+
+
+/* NAVIGATION */
+
+nav a{
+
+color:white;
+
+text-decoration:none;
+
+margin-left:30px;
+
+font-size:15px;
+
+letter-spacing:1px;
+
+}
+
+
+nav a:hover{
+
+color:red;
+
+}
+
+
+/* HERO SECTION */
+
+.hero{
+
+height:100vh;
+
+position:relative;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+text-align:center;
+
+}
+
+
+/* FULLSCREEN BACKGROUND */
+
+.hero-image{
+
+position:absolute;
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+object-position:center 20%;
+
+z-index:-2;
+
+}
+
+
+/* DARK OVERLAY FOR STYLE */
+
+.hero-overlay-dark{
+
+position:absolute;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,0.35);
+
+z-index:-1;
+
+}
+
+
+/* HERO TEXT */
+
+.hero-text{
+
+margin-top:70px;
+
+}
+
+
+.hero-text h1{
+
+font-family:'Oswald', sans-serif;
+
+color:black;
+
+font-size:75px;
+
+letter-spacing:6px;
+
+text-shadow:2px 2px 6px rgba(0,0,0,0.5);
+
+margin-bottom:30px;
+
+}
+
+
+/* BUTTON */
+
+.hero-text button{
+
+padding:16px 50px;
+
+font-size:16px;
+
+border:none;
+
+background:red;
+
+color:white;
+
+cursor:pointer;
+
+letter-spacing:2px;
+
+transition:0.3s;
+
+}
+
+
+.hero-text button:hover{
+
+background:black;
+
+border:2px solid white;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+<img src="savage-logo.png" class="logo">
+
+<nav>
+
+<a href="index.html">HOME</a>
+
+<a href="shop.html">SHOP</a>
+
+<a href="cart.html">CART</a>
+
+</nav>
+
+</header>
+
+
+<!-- HERO SECTION -->
+
+<section class="hero">
+
+<img src="banners.png" class="hero-image">
+
+<div class="hero-overlay-dark"></div>
+
+
+<div class="hero-text">
+
+<h1>
+
+STRICTLY SAVAGE SOCIETY
+
+</h1>
+
+
+<a href="shop.html">
+
+<button>
+
+SHOP NOW
+
+</button>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+</body>
+
+</html>

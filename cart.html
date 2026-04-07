@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>SAVAGE CART</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
+
+
+<style>
+
+/* BODY */
+
+body{
+
+margin:0;
+
+background:black;
+
+color:white;
+
+font-family:Arial;
+
+}
+
+
+/* HEADER */
+
+header{
+
+background:black;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px 55px;
+
+border-bottom:2px solid white;
+
+}
+
+
+/* LOGO */
+
+.logo{
+
+height:85px;
+
+}
+
+
+/* NAV */
+
+nav a{
+
+color:white;
+
+text-decoration:none;
+
+margin-left:30px;
+
+letter-spacing:1px;
+
+}
+
+
+nav a:hover{
+
+color:red;
+
+}
+
+
+/* CART TITLE */
+
+.cart-title{
+
+font-family:'Oswald';
+
+letter-spacing:4px;
+
+font-size:35px;
+
+text-align:center;
+
+margin-top:40px;
+
+}
+
+
+/* CART CONTAINER */
+
+.cart-container{
+
+padding:40px 80px;
+
+}
+
+
+/* CART ITEM */
+
+.cart-item{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+background:#111;
+
+margin-bottom:25px;
+
+padding:20px;
+
+}
+
+
+/* PRODUCT IMAGE */
+
+.cart-item img{
+
+width:120px;
+
+}
+
+
+/* REMOVE BUTTON */
+
+.remove-btn{
+
+background:red;
+
+border:none;
+
+color:white;
+
+padding:8px 15px;
+
+cursor:pointer;
+
+}
+
+
+.remove-btn:hover{
+
+background:black;
+
+border:2px solid white;
+
+}
+
+
+/* TOTAL */
+
+.total{
+
+text-align:center;
+
+font-size:28px;
+
+margin-top:30px;
+
+font-family:'Oswald';
+
+}
+
+
+/* CHECKOUT BUTTON */
+
+.checkout-btn{
+
+display:block;
+
+margin:40px auto;
+
+padding:15px 50px;
+
+font-size:18px;
+
+background:red;
+
+color:white;
+
+border:none;
+
+cursor:pointer;
+
+letter-spacing:2px;
+
+}
+
+
+.checkout-btn:hover{
+
+background:black;
+
+border:2px solid white;
+
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<header>
+
+<img src="savage-logo.png" class="logo">
+
+
+<nav>
+
+<a href="index.html">HOME</a>
+
+<a href="shop.html">SHOP</a>
+
+<a href="checkout.html">CHECKOUT</a>
+
+</nav>
+
+
+</header>
+
+
+
+<div class="cart-title">
+
+YOUR CART
+
+</div>
+
+
+
+<div class="cart-container" id="cart-container">
+
+</div>
+
+
+
+<div class="total" id="total-price">
+
+TOTAL: ₦0
+
+</div>
+
+
+
+<button class="checkout-btn" onclick="goToCheckout()">
+
+PROCEED TO CHECKOUT
+
+</button>
+
+
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let container = document.getElementById("cart-container");
+
+let total = 0;
+
+
+function renderCart(){
+
+container.innerHTML="";
+
+
+cart.forEach((item,index)=>{
+
+total += item.price;
+
+
+container.innerHTML += `
+
+<div class="cart-item">
+
+<img src="${item.image}">
+
+<div>
+
+<h3>${item.name}</h3>
+
+<p>Size: ${item.size}</p>
+
+<p>₦${item.price}</p>
+
+</div>
+
+<button class="remove-btn" onclick="removeItem(${index})">
+
+REMOVE
+
+</button>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("total-price").innerText =
+
+"TOTAL: ₦" + total;
+
+}
+
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+location.reload();
+
+}
+
+
+function goToCheckout(){
+
+window.location.href="checkout.html";
+
+}
+
+
+renderCart();
+
+</script>
+
+
+
+</body>
+
+</html>
