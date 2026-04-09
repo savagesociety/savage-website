@@ -9,7 +9,8 @@
 <title>Savage Checkout</title>
 
 <script src="https://js.paystack.co/v1/inline.js"></script>
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <style>
 
@@ -29,67 +30,40 @@ font-weight:bold;
 }
 
 .checkout-container{
-
 max-width:600px;
-
 margin:40px auto;
-
 background:#222;
-
 padding:30px;
-
 border-radius:12px;
-
 }
 
 input,select{
-
 width:100%;
-
 padding:12px;
-
 margin-top:10px;
-
 margin-bottom:20px;
-
 border:none;
-
 border-radius:6px;
-
 }
 
 button{
-
 width:100%;
-
 padding:15px;
-
 background:red;
-
 color:white;
-
 font-size:18px;
-
 border:none;
-
 cursor:pointer;
-
 border-radius:6px;
-
 }
 
 button:hover{
-
 background:#cc0000;
-
 }
 
 .total-box{
-
 margin-top:20px;
-
 font-size:18px;
-
 }
 
 </style>
@@ -120,33 +94,21 @@ SAVAGE CHECKOUT
 <label>Email</label>
 
 <input
-
 type="email"
-
 id="email"
-
 placeholder="example@gmail.com"
-
 required
-
 >
-
 
 
 <label>Delivery Address</label>
 
 <input
-
 type="text"
-
 id="address"
-
 placeholder="Enter delivery address"
-
 required
-
 >
-
 
 
 <label>Select Delivery Option</label>
@@ -159,11 +121,8 @@ required
 
 
 <option
-
 value="Lagos Island"
-
 data-fee="8000"
-
 >
 
 Lagos Island (+₦8,000)
@@ -171,13 +130,9 @@ Lagos Island (+₦8,000)
 </option>
 
 
-
 <option
-
 value="Lagos Mainland"
-
 data-fee="6000"
-
 >
 
 Lagos Mainland (+₦6,000)
@@ -185,13 +140,9 @@ Lagos Mainland (+₦6,000)
 </option>
 
 
-
 <option
-
 value="Pickup"
-
 data-fee="0"
-
 >
 
 Pick up at Isheri Estate Committee, Opic Harmony Villas
@@ -206,16 +157,12 @@ Pick up at Isheri Estate Committee, Opic Harmony Villas
 <div class="total-box">
 
 <p id="deliveryFee">
-
 Delivery Fee: ₦0
-
 </p>
 
 
 <p id="totalAmount">
-
 Total Amount: ₦0
-
 </p>
 
 </div>
@@ -238,199 +185,141 @@ Pay Now
 
 <script>
 
-
-emailjs.init(
-
-"33m-P9BS7popkD_uY"
-
-);
-
+emailjs.init("33m-P9BS7popkD_uY");
 
 
 let cart =
-
-JSON.parse(
-
-localStorage.getItem("cart")
-
-) || [];
+JSON.parse(localStorage.getItem("cart")) || [];
 
 
 let cartTotal =
-
 cart.reduce(
-
 (sum,item)=>sum+item.price,
-
 0
-
 );
 
 
-
 const deliverySelect =
-
 document.getElementById("delivery");
 
 
 const deliveryFeeText =
-
 document.getElementById("deliveryFee");
 
 
 const totalText =
-
 document.getElementById("totalAmount");
 
 
 
 function updateTotal(){
 
-
 const selected =
-
 deliverySelect.options[
-
 deliverySelect.selectedIndex
-
 ];
 
 
 const fee =
-
 parseInt(
-
 selected?.dataset.fee
-
 )||0;
 
 
-
 deliveryFeeText.innerText =
-
 "Delivery Fee: ₦"+fee;
 
 
-
 totalText.innerText =
-
 "Total Amount: ₦"+(cartTotal+fee);
-
 
 }
 
 
-
 deliverySelect.addEventListener(
-
 "change",
-
 updateTotal
-
 );
 
 
 
 document
-
 .getElementById("checkout-form")
-
 .addEventListener(
-
 "submit",
-
 function(e){
-
 
 e.preventDefault();
 
 
-
 let email =
-
 document.getElementById("email").value;
 
 
-
 let address =
-
 document.getElementById("address").value;
 
 
-
 let selected =
-
 deliverySelect.options[
-
 deliverySelect.selectedIndex
-
 ];
 
 
 let delivery =
-
 selected.value;
 
 
 let deliveryFee =
-
-parseInt(
-
-selected.dataset.fee
-
-)||0;
+parseInt(selected.dataset.fee)||0;
 
 
 let totalPayable =
-
 cartTotal + deliveryFee;
 
 
+/* BUILD CLEAN ORDER LIST */
+
+let orderList = "";
+
+cart.forEach(item => {
+
+orderList +=
+item.name +
+" | Size: " +
+item.size +
+" | ₦" +
+item.price +
+"\n";
+
+});
+
 
 let handler =
-
 PaystackPop.setup({
 
-
 key:
-
 "pk_live_c83beeb26fc63993672d7cb37024b5f5ae42600d",
 
-
 email:
-
 email,
 
-
 amount:
-
 totalPayable*100,
 
-
 currency:
-
 "NGN",
 
-
 ref:
-
 "SAVAGE_"+Math.floor(
-
 Math.random()*1000000000
-
 ),
 
 
 
 callback:function(response){
 
-
-alert(
-
-"Payment Successful!"
-
-);
-
+alert("Payment Successful!");
 
 
 emailjs.send(
@@ -441,66 +330,35 @@ emailjs.send(
 
 {
 
+customer_email: email,
 
-customer_email:
+delivery_address: address,
 
-email,
+delivery_option: delivery,
 
+order_details: orderList,
 
-address:
+subtotal: cartTotal,
 
-address,
+delivery_fee: deliveryFee,
 
+total: totalPayable,
 
-delivery:
-
-delivery,
-
-
-cart:
-
-JSON.stringify(cart),
-
-
-total:
-
-totalPayable,
-
-
-reference:
-
-response.reference
-
+payment_reference: response.reference
 
 }
 
-
 ).then(()=>{
 
-
-console.log(
-
-"Order sent to email"
-
-);
-
+console.log("Order sent to email");
 
 });
 
 
-
-localStorage.removeItem(
-
-"cart"
-
-);
+localStorage.removeItem("cart");
 
 
-
-window.location.href=
-
-"index.html";
-
+window.location.href="index.html";
 
 },
 
@@ -508,22 +366,14 @@ window.location.href=
 
 onClose:function(){
 
-
-alert(
-
-"Payment cancelled"
-
-);
-
+alert("Payment cancelled");
 
 }
-
 
 });
 
 
 handler.openIframe();
-
 
 });
 
