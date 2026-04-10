@@ -192,7 +192,7 @@ alert("Added to cart")
 
 <h3>Black Savage Tee</h3>
 
-<p>₦15000</p>
+<p>₦20000</p>
 
 <select id="blackteeSize">
 
@@ -218,7 +218,7 @@ alert("Added to cart")
 
 'Black Savage Tee',
 
-15000,
+20000,
 
 'blacktee.png',
 
@@ -236,7 +236,7 @@ document.getElementById('blackteeSize').value
 
 <h3>Red Savage Tee</h3>
 
-<p>₦15000</p>
+<p>₦20000</p>
 
 <select id="redteeSize">
 
@@ -262,7 +262,7 @@ document.getElementById('blackteeSize').value
 
 'Red Savage Tee',
 
-15000,
+20000,
 
 'redtee.png',
 
@@ -505,20 +505,20 @@ document.getElementById('femalePoloSize').value
 <select id="shortSize">
 
 <option>EES</option>
-
 <option>ES</option>
-
 <option>S</option>
-
 <option>M</option>
-
 <option>L</option>
-
 <option>XL</option>
-
 <option>XXL</option>
-
 <option>3XL</option>
+
+</select>
+
+<select id="shortColor">
+
+<option>Black</option>
+<option>Red</option>
 
 </select>
 
@@ -530,7 +530,9 @@ document.getElementById('femalePoloSize').value
 
 'shorts.png',
 
-document.getElementById('shortSize').value
+document.getElementById('shortSize').value,
+
+document.getElementById('shortColor').value
 
 )">ADD TO CART</button>
 
@@ -549,20 +551,20 @@ document.getElementById('shortSize').value
 <select id="setSize">
 
 <option>EES</option>
-
 <option>ES</option>
-
 <option>S</option>
-
 <option>M</option>
-
 <option>L</option>
-
 <option>XL</option>
-
 <option>XXL</option>
-
 <option>3XL</option>
+
+</select>
+
+<select id="setColor">
+
+<option>Black</option>
+<option>Red</option>
 
 </select>
 
@@ -574,12 +576,177 @@ document.getElementById('shortSize').value
 
 'babyteefullset.png',
 
-document.getElementById('setSize').value
+document.getElementById('setSize').value,
+
+document.getElementById('setColor').value
 
 )">ADD TO CART</button>
 
 </div>
+<!-- NEW PRODUCTS START -->
 
+<div class="product">
+<img src="societyteev1.png">
+<h3>Society Tee V1</h3>
+<p>₦20000</p>
+<select id="societyv1">
+<option>EES</option><option>ES</option><option>S</option>
+<option>M</option><option>L</option><option>XL</option>
+<option>XXL</option><option>3XL</option>
+</select>
+<button onclick="addProduct(
+'Society Tee V1',
+20000,
+'societyteev1.png',
+document.getElementById('societyv1').value
+)">ADD TO CART</button>
+</div>
+
+
+<div class="product">
+<img src="societyteev2.png">
+<h3>Society Tee V2</h3>
+<p>₦20000</p>
+<select id="societyv2">
+<option>EES</option><option>ES</option><option>S</option>
+<option>M</option><option>L</option><option>XL</option>
+<option>XXL</option><option>3XL</option>
+</select>
+<button onclick="addProduct(
+'Society Tee V2',
+20000,
+'societyteev2.png',
+document.getElementById('societyv2').value
+)">ADD TO CART</button>
+</div>
+
+
+<div class="product">
+<img src="sweatpantsv1.png">
+<h3>Sweatpants V1</h3>
+<p>₦40000</p>
+<select id="sweatpantsv1">
+<option>EES</option><option>ES</option><option>S</option>
+<option>M</option><option>L</option><option>XL</option>
+<option>XXL</option><option>3XL</option>
+</select>
+<button onclick="addProduct(
+'Sweatpants V1',
+40000,
+'sweatpantsv1.png',
+document.getElementById('sweatpantsv1').value
+)">ADD TO CART</button>
+</div>
+
+
+<div class="product">
+<img src="swetpantsv2.png">
+<h3>Sweatpants V2</h3>
+<p>₦40000</p>
+<select id="sweatpantsv2">
+<option>EES</option><option>ES</option><option>S</option>
+<option>M</option><option>L</option><option>XL</option>
+<option>XXL</option><option>3XL</option>
+</select>
+<button onclick="addProduct(
+'Sweatpants V2',
+40000,
+'sweatpantsv2.png',
+document.getElementById('sweatpantsv2').value
+)">ADD TO CART</button>
+</div>
+
+
+<div class="product">
+<img src="savagetrack.png">
+<h3>Savage Track Suit</h3>
+<p>₦110000</p>
+<select id="tracksuit">
+<option>EES</option><option>ES</option><option>S</option>
+<option>M</option><option>L</option><option>XL</option>
+<option>XXL</option><option>3XL</option>
+</select>
+<button onclick="addProduct(
+'Savage Track Suit',
+110000,
+'savagetrack.png',
+document.getElementById('tracksuit').value
+)">ADD TO CART</button>
+</div>
+
+
+<div class="product">
+<img src="trackjacket.png">
+<h3>Savage Track Jacket</h3>
+<p>₦60000</p>
+<select id="trackjacket">
+<option>EES</option><option>ES</option><option>S</option>
+<option>M</option><option>L</option><option>XL</option>
+<option>XXL</option><option>3XL</option>
+</select>
+<button onclick="addProduct(
+'Savage Track Jacket',
+60000,
+'trackjacket.png',
+document.getElementById('trackjacket').value
+)">ADD TO CART</button>
+</div>
+
+
+<div class="product">
+<img src="trackpants.png">
+<h3>Savage Track Pants</h3>
+<p>₦50000</p>
+<select id="trackpants">
+<option>EES</option><option>ES</option><option>S</option>
+<option>M</option><option>L</option><option>XL</option>
+<option>XXL</option><option>3XL</option>
+</select>
+<button onclick="addProduct(
+'Savage Track Pants',
+50000,
+'trackballs.png',
+document.getElementById('trackpants').value
+)">ADD TO CART</button>
+</div>
+
+
+<div class="product">
+<img src="black2piece.png">
+<h3>Black Savage Female 2-Piece</h3>
+<p>₦60000</p>
+<select id="black2piece">
+<option>EES</option><option>ES</option><option>S</option>
+<option>M</option><option>L</option><option>XL</option>
+<option>XXL</option><option>3XL</option>
+</select>
+<button onclick="addProduct(
+'Black Savage Female 2-Piece',
+60000,
+'black2piece.png',
+document.getElementById('black2piece').value
+)">ADD TO CART</button>
+</div>
+
+
+<div class="product">
+<img src="white2piece.png">
+<h3>White Savage Female 2-Piece</h3>
+<p>₦60000</p>
+<select id="white2piece">
+<option>EES</option><option>ES</option><option>S</option>
+<option>M</option><option>L</option><option>XL</option>
+<option>XXL</option><option>3XL</option>
+</select>
+<button onclick="addProduct(
+'White Savage Female 2-Piece',
+60000,
+'whitespace.png',
+document.getElementById('white2piece').value
+)">ADD TO CART</button>
+</div>
+
+<!-- NEW PRODUCTS END -->
 
 
 </div>
