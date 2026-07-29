@@ -65,14 +65,59 @@ background:#cc0000;
 margin-top:20px;
 font-size:18px;
 }
+@media(max-width:768px){
 
+.checkout-container{
+
+width:92%;
+
+padding:20px;
+
+margin:20px auto;
+
+box-sizing:border-box;
+
+}
+
+header{
+
+font-size:20px;
+
+padding:15px;
+
+}
+
+input,
+select,
+button{
+
+font-size:16px;
+
+}
+
+}
 </style>
 
 </head>
 
 
 <body>
+<script>
 
+if(
+
+localStorage.getItem("websiteLocked")==="true"
+
+&&
+
+localStorage.getItem("adminBypass")!=="true"
+
+){
+
+window.location.href="locked.html";
+
+}
+</script>
 
 <header>
 
@@ -117,45 +162,98 @@ required
 <select id="delivery" required>
 
 
-<option value="">Select Option</option>
+<option value="">Select Delivery Option</option>
 
+<optgroup label="🇳🇬 Nigeria">
 
-<option
-value="Lagos Island"
-data-fee="8000"
->
-
-Lagos Island (+₦8,000)
-
+<option value="Pickup" data-fee="0">
+Pickup - Isheri Estate Committee
 </option>
 
-
-<option
-value="Lagos Mainland"
-data-fee="6000"
->
-
+<option value="Lagos Mainland"data-fee="6000">
 Lagos Mainland (+₦6,000)
-
 </option>
 
-
-<option
-value="Pickup"
-data-fee="0"
->
-
-Pick up at Isheri Estate Committee, Opic Harmony Villas
-
+<option value="Lagos Island" data-fee="8000">
+Lagos Island (+₦8,000)
 </option>
+
+<option value="Other States" data-fee="12000">
+Other Nigerian States (+₦12,000)
+</option>
+
+</optgroup>
+
+<optgroup label="🇺🇸 Houston">
+
+<option value="Houston Pickup" data-fee="0">
+Houston Pickup (FREE)
+</option>
+
+<option value="Houston Delivery" data-fee="16000">
+Houston Local Delivery
+</option>
+
+</optgroup>
+
+<optgroup label="🌍 International">
+
+<option value="International Quote" data-fee="0">
+International Shipping (Quote After Order)
+</option>
+
+</optgroup>
+
 
 
 </select>
+<label>Promo Code</label>
 
+<div style="display:flex;gap:10px;margin-bottom:20px;">
 
+<input
+type="text"
+id="promoCode"
+placeholder="Enter Promo Code"
+style="margin:0;flex:1;"
+>
 
+<button
+type="button"
+id="applyPromo"
+style="width:140px;"
+>
+
+Apply
+
+</button>
+
+</div>
+
+<p id="promoMessage" style="color:#00ff99;font-weight:bold;"></p>
+
+<h3 style="margin-top:30px;">Order Summary</h3>
+
+<div id="orderSummary"
+<div id="orderSummary"
+style="
+background:#111;
+padding:20px;
+border-radius:12px;
+border:1px solid #333;
+box-shadow:0 0 15px rgba(255,0,0,.15);
+margin-bottom:20px;
+">
+</div>
 <div class="total-box">
-
+<p
+id="shippingNotice"
+style="
+color:#bbb;
+font-size:14px;
+margin-bottom:15px;
+">
+</p>
 <p id="deliveryFee">
 Delivery Fee: ₦0
 </p>
@@ -177,10 +275,50 @@ Pay Now
 
 
 </form>
+<hr style="margin:40px 0;border:1px solid #444;">
 
+<h2 style="text-align:center;">Need Help?</h2>
+
+<p style="text-align:center;color:#ccc;">
+Contact Savage Support
+</p>
+
+<div style="display:flex;flex-direction:column;gap:15px;">
+
+<a href="mailto:Conradoebuka@gmail.com"
+style="color:white;text-decoration:none;background:#111;padding:15px;border-radius:8px;">
+
+📧 Email
+<br>
+<small>Conradoebuka@gmail.com</small>
+
+</a>
+
+<a href="https://wa.me/2348100468806"
+target="_blank"
+style="color:white;text-decoration:none;background:#111;padding:15px;border-radius:8px;">
+
+💬 WhatsApp
+<br>
+<small>+2348100468806</small>
+
+</a>
+
+<a href="https://www.snapchat.com/add/conrad_oguine"
+target="_blank"
+style="color:white;text-decoration:none;background:#111;padding:15px;border-radius:8px;">
+
+👻 Snapchat
+<br>
+<small>@conrad_oguine</small>
+
+</a>
 
 </div>
 
+</div>
+
+<body>
 
 
 <script>
@@ -190,18 +328,114 @@ emailjs.init("33m-P9BS7popkD_uY");
 
 let cart =
 JSON.parse(localStorage.getItem("cart")) || [];
+const shipping =
 
+JSON.parse(
+
+localStorage.getItem("shipping")
+
+)||{
+
+mainland:6000,
+
+island:8000,
+
+other:12000,
+
+houston:16000
+
+};
+const exchangeRate =
+parseFloat(
+localStorage.getItem("exchangeRate")
+) || 1600;
+
+let currentCurrency =
+localStorage.getItem("currency") || "NGN";
+
+function formatPrice(price){
+
+if(currentCurrency==="USD"){
+
+return "$"+(price/exchangeRate).toFixed(2);
+
+}
+
+return "₦"+price.toLocaleString();
+
+}
 
 let cartTotal =
-cart.reduce(
-(sum,item)=>sum+item.price,
-0
-);
+cart.reduce((sum,item)=>{
 
+return sum + (item.price * (item.quantity || 1));
+
+},0);
+let discount = 0;
 
 const deliverySelect =
 document.getElementById("delivery");
+/* ---------- LOAD SHIPPING SETTINGS ---------- */
 
+const savedShipping =
+
+JSON.parse(
+
+localStorage.getItem("shipping")
+
+);
+
+if(savedShipping){
+
+deliverySelect.querySelectorAll("option").forEach(function(option){
+
+switch(option.value){
+
+case "Lagos Mainland":
+
+option.dataset.fee=savedShipping.mainland;
+
+option.textContent=
+
+"Lagos Mainland (+₦"+savedShipping.mainland.toLocaleString()+")";
+
+break;
+
+case "Lagos Island":
+
+option.dataset.fee=savedShipping.island;
+
+option.textContent=
+
+"Lagos Island (+₦"+savedShipping.island.toLocaleString()+")";
+
+break;
+
+case "Other States":
+
+option.dataset.fee=savedShipping.other;
+
+option.textContent=
+
+"Other Nigerian States (+₦"+savedShipping.other.toLocaleString()+")";
+
+break;
+
+case "Houston Delivery":
+
+option.dataset.fee=savedShipping.houston;
+
+option.textContent=
+
+"Houston Local Delivery (+₦"+savedShipping.houston.toLocaleString()+")";
+
+break;
+
+}
+
+});
+
+}
 
 const deliveryFeeText =
 document.getElementById("deliveryFee");
@@ -209,9 +443,102 @@ document.getElementById("deliveryFee");
 
 const totalText =
 document.getElementById("totalAmount");
+deliverySelect.addEventListener("change", updateTotal);
 
+function updateOrderSummary(){
 
+const summary =
+document.getElementById("orderSummary");
 
+summary.innerHTML="";
+
+let subtotal=0;
+
+cart.forEach(item=>{
+
+const qty=item.quantity||1;
+
+const itemTotal=item.price*qty;
+
+subtotal+=itemTotal;
+
+summary.innerHTML+=`
+
+<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #333;">
+
+<div>
+
+<strong>${item.name}</strong><br>
+
+<small>Size: ${item.size}</small><br>
+
+<small>Qty: ${qty}</small>
+
+</div>
+
+<div>
+
+<strong>${formatPrice(itemTotal)}</strong>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+const selected =
+deliverySelect.options[
+deliverySelect.selectedIndex
+];
+
+const fee =
+parseInt(selected?.dataset.fee)||0;
+
+summary.innerHTML+=`
+
+<div style="margin-top:20px;">
+
+<div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+
+<span>Subtotal</span>
+
+<strong>${formatPrice(subtotal)}</strong>
+
+</div>
+
+<div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+
+<span>Discount</span>
+
+<strong>- ${formatPrice(discount)}</strong>
+
+</div>
+
+<div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+
+<span>Delivery</span>
+
+<strong>${formatPrice(fee)}</strong>
+
+</div>
+
+<hr style="border:1px solid #444;">
+
+<div style="display:flex;justify-content:space-between;font-size:22px;font-weight:bold;color:red;">
+
+<span>TOTAL</span>
+
+<span>${formatPrice((subtotal-discount)+fee)}</span>
+
+</div>
+
+</div>
+
+`;
+
+}
 function updateTotal(){
 
 const selected =
@@ -219,29 +546,87 @@ deliverySelect.options[
 deliverySelect.selectedIndex
 ];
 
-
 const fee =
 parseInt(
 selected?.dataset.fee
 )||0;
+const notice =
+document.getElementById("shippingNotice");
 
+if(selected.value==="International Quote"){
 
-deliveryFeeText.innerText =
-"Delivery Fee: ₦"+fee;
-
-
-totalText.innerText =
-"Total Amount: ₦"+(cartTotal+fee);
+notice.innerHTML=
+"🌍 International shipping will be calculated after your order is placed. We'll contact you with the exact courier cost.";
 
 }
 
+else if(selected.value==="Houston Pickup"){
 
-deliverySelect.addEventListener(
-"change",
-updateTotal
-);
+notice.innerHTML=
+"🇺🇸 Pickup location will be sent after payment.";
 
+}
 
+else{
+
+notice.innerHTML="";
+}
+const finalTotal =
+(cartTotal-discount)+fee;
+
+deliveryFeeText.innerText =
+"Delivery Fee: "+formatPrice(fee);
+
+totalText.innerText =
+"Total Amount: "+formatPrice(finalTotal);
+updateOrderSummary();
+}
+
+document
+.getElementById("applyPromo")
+.onclick=function(){
+
+const code=
+document
+.getElementById("promoCode")
+.value
+.trim()
+.toUpperCase();
+
+const msg=
+document
+.getElementById("promoMessage");
+
+if(code==="WELCOME10"){
+
+discount=cartTotal*0.10;
+
+msg.innerHTML=
+"✓ 10% discount applied.";
+
+}
+
+else if(code==="DROP20"){
+
+discount=cartTotal*0.20;
+
+msg.innerHTML=
+"✓ 20% discount applied.";
+
+}
+
+else{
+
+discount=0;
+
+msg.innerHTML=
+"❌ Invalid promo code.";
+
+}
+
+updateTotal();
+
+};
 
 document
 .getElementById("checkout-form")
@@ -275,8 +660,7 @@ parseInt(selected.dataset.fee)||0;
 
 
 let totalPayable =
-cartTotal + deliveryFee;
-
+(cartTotal-discount)+deliveryFee;
 
 /* BUILD CLEAN ORDER LIST */
 
@@ -286,10 +670,12 @@ cart.forEach(item => {
 
 orderList +=
 item.name +
+" | Qty: " +
+(item.quantity||1) +
 " | Size: " +
 item.size +
-" | ₦" +
-item.price +
+" | " +
+formatPrice(item.price) +
 "\n";
 
 });
@@ -320,7 +706,56 @@ Math.random()*1000000000
 callback:function(response){
 
 alert("Payment Successful!");
+let orders =
+JSON.parse(localStorage.getItem("orders")) || [];
 
+orders.push({
+
+orderId:
+"SAV"+Date.now(),
+
+customer:
+email,
+
+email:
+email,
+
+address:
+address,
+
+delivery:
+delivery,
+
+products:
+cart,
+
+subtotal:
+cartTotal,
+
+deliveryFee:
+deliveryFee,
+
+total:
+totalPayable,
+
+paymentReference:
+response.reference,
+
+status:
+"PAID",
+
+date:
+new Date().toLocaleString()
+
+});
+
+localStorage.setItem(
+
+"orders",
+
+JSON.stringify(orders)
+
+);
 
 emailjs.send(
 
@@ -379,7 +814,7 @@ handler.openIframe();
 
 
 updateTotal();
-
+updateOrderSummary();
 
 </script>
 

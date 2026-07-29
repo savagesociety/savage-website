@@ -1,756 +1,1673 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Savage Shop</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
 
-body{
+*{
 margin:0;
-font-family:Arial;
-background:black;
-color:white;
+padding:0;
+box-sizing:border-box;
+font-family:'Montserrat',sans-serif;
 }
 
-/* TOP BANNER */
-
-.topbar{
-background:red;
-color:white;
-text-align:center;
-padding:12px;
-font-weight:bold;
-font-size:18px;
+html{
+scroll-behavior:smooth;
 }
 
-/* NAVBAR */
+body{
 
-.navbar{
+background:#000;
+color:#fff;
+overflow-x:hidden;
+position:relative;
+
+}
+
+/* Background Logo */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:url("backgroundlogo.png") center center no-repeat;
+
+background-size:85%;
+
+opacity:.20;
+
+pointer-events:none;
+
+z-index:-1;
+
+}
+
+/* Header */
+
+header{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+
+padding:18px 5%;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
-padding:15px;
-background:black;
-border-bottom:2px solid red;
+
+background:rgba(0,0,0,.92);
+
+backdrop-filter:blur(10px);
+
+z-index:1000;
+
+border-bottom:1px solid rgba(255,0,0,.25);
+
 }
+
+/* Logo */
 
 .logo{
+
 height:70px;
+
+cursor:pointer;
+
 }
 
-.nav-links a{
+/* Right Side */
+
+.header-right{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+/* Buttons */
+
+.header-btn{
+
+background:#111;
+
 color:white;
-text-decoration:none;
-margin-left:20px;
-font-weight:bold;
+
+border:1px solid red;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:700;
+
+transition:.25s;
+
 }
 
-/* PRODUCT GRID */
+.header-btn:hover{
+
+background:red;
+
+}
+
+/* Currency */
+
+#currency{
+
+background:#111;
+
+color:white;
+
+border:1px solid red;
+
+padding:10px;
+
+border-radius:8px;
+
+outline:none;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+/* Main */
+
+main{
+
+padding-top:140px;
+
+padding-bottom:60px;
+
+width:92%;
+
+max-width:1500px;
+
+margin:auto;
+
+}
+
+/* Title */
+
+.page-title{
+
+text-align:center;
+
+font-size:40px;
+
+font-weight:800;
+
+letter-spacing:4px;
+
+margin-bottom:40px;
+
+}
+/* Products Grid */
 
 .products{
+
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
-padding:40px;
+
+grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+
+gap:35px;
+
 }
 
-/* PRODUCT CARD */
+/* Product Card */
 
 .product{
+
 background:#111;
+
+border:1px solid rgba(255,0,0,.35);
+
+border-radius:18px;
+
 padding:20px;
-border-radius:10px;
+
+cursor:pointer;
+
+transition:.3s;
+
 text-align:center;
-border:1px solid red;
+
+}
+
+.product:hover{
+
+transform:translateY(-8px);
+
+border-color:red;
+
+box-shadow:0 0 25px rgba(255,0,0,.25);
+
 }
 
 .product img{
+
 width:100%;
-max-width:200px;
+
+height:320px;
+
+object-fit:cover;
+
+border-radius:12px;
+
 }
 
-select{
-margin-top:8px;
-padding:6px;
-width:80%;
+.product h3{
+
+margin-top:18px;
+
+font-size:22px;
+
+font-weight:800;
+
 }
 
-button{
+.product p{
+
 margin-top:10px;
-padding:10px;
-background:red;
-border:none;
+
+font-size:18px;
+
+font-weight:700;
+
+color:#ddd;
+
+}
+/* SEARCH */
+
+.shop-tools{
+
+display:flex;
+
+justify-content:center;
+
+margin-bottom:25px;
+
+}
+
+#searchBar{
+
+width:420px;
+
+max-width:90%;
+
+padding:14px;
+
+background:#111;
+
 color:white;
-font-weight:bold;
+
+border:1px solid red;
+
+border-radius:12px;
+
+font-size:16px;
+
+outline:none;
+
+}
+
+/* FILTERS */
+
+.filter-buttons{
+
+display:flex;
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+gap:12px;
+
+margin-bottom:35px;
+
+}
+
+.filter-btn{
+
+padding:10px 18px;
+
+background:#111;
+
+border:1px solid red;
+
+color:white;
+
+border-radius:25px;
+
 cursor:pointer;
-width:80%;
+
+transition:.3s;
+
+font-weight:700;
+
 }
 
-button:hover{
-background:#ff3333;
+.filter-btn:hover{
+
+background:red;
+
 }
 
+.filter-btn.active{
+
+background:red;
+
+}
+
+/* STOCK */
+
+.stock{
+
+margin-top:12px;
+
+font-size:14px;
+
+font-weight:700;
+
+color:#00ff66;
+
+}
+/* POPUP */
+
+.modal{
+
+display:none;
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.85);
+
+justify-content:center;
+
+align-items:center;
+
+z-index:9999;
+
+padding:20px;
+
+}
+
+.modal-content{
+
+background:#111;
+
+border:2px solid red;
+
+border-radius:20px;
+
+width:100%;
+
+max-width:1000px;
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:40px;
+
+padding:30px;
+
+position:relative;
+
+}
+
+.popup-left{
+
+flex:1;
+
+text-align:center;
+
+min-width:280px;
+
+}
+
+.popup-left img{
+
+width:100%;
+
+max-width:420px;
+
+border-radius:15px;
+
+}
+
+.popup-right{
+
+flex:1;
+
+min-width:280px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+}
+
+.popup-right h2{
+
+font-size:32px;
+
+margin-bottom:15px;
+
+}
+
+.popup-right h3{
+
+font-size:26px;
+
+margin-bottom:25px;
+
+}
+
+.popup-right label{
+
+font-weight:700;
+
+margin-top:15px;
+
+margin-bottom:6px;
+
+}
+
+.popup-right select{
+
+padding:12px;
+
+background:#000;
+
+color:white;
+
+border:1px solid red;
+
+border-radius:8px;
+
+}
+
+#addCartBtn{
+
+margin-top:30px;
+
+padding:15px;
+
+background:red;
+
+border:none;
+
+color:white;
+
+font-weight:800;
+
+font-size:16px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+#addCartBtn:hover{
+
+background:#cc0000;
+
+}
+
+.close-btn{
+
+position:absolute;
+
+top:15px;
+
+right:20px;
+
+font-size:34px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+}
+
+#poloButtons{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+}
+
+#poloButtons button{
+
+padding:10px 18px;
+
+background:#111;
+
+color:white;
+
+border:1px solid red;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+/* POPUP ANIMATION */
+
+.modal{
+
+animation:fadeIn .25s ease;
+
+}
+
+.modal-content{
+
+animation:popup .3s ease;
+
+}
+
+@keyframes popup{
+
+from{
+
+transform:scale(.9);
+
+opacity:0;
+
+}
+
+to{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+}
+
+to{
+
+opacity:1;
+
+}
+
+}
+
+/* PRODUCT FADE */
+
+.product{
+
+animation:productFade .4s ease;
+
+}
+
+@keyframes productFade{
+
+from{
+
+opacity:0;
+
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+header{
+
+padding:15px;
+
+}
+
+.logo{
+
+height:55px;
+
+}
+
+.page-title{
+
+font-size:32px;
+
+}
+
+.modal-content{
+
+padding:20px;
+
+}
+
+.popup-left img{
+
+max-width:300px;
+
+}
+
+.header-right{
+
+gap:8px;
+
+flex-wrap:wrap;
+
+}
+
+.header-btn{
+
+padding:8px 12px;
+
+font-size:12px;
+
+}
+
+}
 </style>
 
 </head>
 
+<body>
+ <script>
 
+if(
+
+localStorage.getItem("websiteLocked")==="true"
+
+&&
+
+localStorage.getItem("adminBypass")!=="true"
+
+){
+
+window.location.href="locked.html";
+
+}
+
+</script>   
+ <header>
+<div id="announcementBanner"
+style="
+display:none;
+background:#c00000;
+color:white;
+text-align:center;
+padding:12px;
+font-weight:bold;
+font-size:16px;
+">
+</div>
+<a href="index.html">
+
+<img src="logo.png" class="logo" alt="Savage Logo">
+
+</a>
+
+<div class="header-right">
+
+<select id="currency">
+
+<option value="NGN">🇳🇬 NGN</option>
+
+<option value="USD">🇺🇸 USD</option>
+
+</select>
+<button class="header-btn"
+
+onclick="location.href='control.html'">
+
+CONTROL PANEL
+
+</button>
+<button class="header-btn" onclick="location.href='index.html'">
+
+HOME
+
+</button>
+
+<button class="header-btn" onclick="location.href='cart.html'">
+
+🛒 CART
+
+(<span id="cartCount">0</span>)
+
+</button>
+</div>
+
+</header>
+
+<main>
+
+<h1 class="page-title">
+
+SHOP
+
+</h1>
+
+<div class="shop-tools">
+
+<input
+type="text"
+id="searchBar"
+placeholder="Search products...">
+
+</div>
+
+<div class="filter-buttons">
+
+<button class="filter-btn active" onclick="filterProducts('all')">ALL</button>
+
+<button class="filter-btn" onclick="filterProducts('tee')">TEES</button>
+
+<button class="filter-btn" onclick="filterProducts('baby')">BABY TEES</button>
+
+<button class="filter-btn" onclick="filterProducts('polo')">POLOS</button>
+
+<button class="filter-btn" onclick="filterProducts('bottom')">BOTTOMS</button>
+
+<button class="filter-btn" onclick="filterProducts('set')">SETS</button>
+
+</div>
+
+<div class="products">
+ <!-- Black Tee -->
+<div class="product" onclick="openProduct('Black Savage Tee',20000,'blacktee.png',false,false)">
+<img src="blacktee.png" alt="Black Savage Tee">
+<h3>Black Savage Tee</h3>
+<p class="price" data-ngn="20000">₦20,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Red Tee -->
+<div class="product" onclick="openProduct('Red Savage Tee',20000,'redtee.png',false,false)">
+<img src="redtee.png" alt="Red Savage Tee">
+<h3>Red Savage Tee</h3>
+<p class="price" data-ngn="20000">₦20,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Black Polo -->
+<div class="product" onclick="openProduct('Savage Black Polo',55000,'blackpolo.png',true,false)">
+<img src="blackpolo.png" alt="Savage Black Polo">
+<h3>Savage Black Polo</h3>
+<p class="price" data-ngn="55000">₦55,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- White Polo -->
+<div class="product" onclick="openProduct('Savage White Polo',55000,'whitepolo.png',true,false)">
+<img src="whitepolo.png" alt="Savage White Polo">
+<h3>Savage White Polo</h3>
+<p class="price" data-ngn="55000">₦55,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Society Tee V1 -->
+<div class="product" onclick="openProduct('Society Tee V1',20000,'societyteev1.png',false,false)">
+<img src="societyteev1.png" alt="Society Tee V1">
+<h3>Society Tee V1</h3>
+<p class="price" data-ngn="20000">₦20,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Society Tee V2 -->
+<div class="product" onclick="openProduct('Society Tee V2',20000,'societyteev2.png',false,false)">
+<img src="societyteev2.png" alt="Society Tee V2">
+<h3>Society Tee V2</h3>
+<p class="price" data-ngn="20000">₦20,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Sweatpants V1 -->
+<div class="product" onclick="openProduct('Sweatpants V1',40000,'sweatpantsv1.png',false,false)">
+<img src="sweatpantsv1.png" alt="Sweatpants V1">
+<h3>Sweatpants V1</h3>
+<p class="price" data-ngn="40000">₦40,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Sweatpants V2 -->
+<div class="product" onclick="openProduct('Sweatpants V2',40000,'sweatpantsv2.png',false,false)">
+<img src="sweatpantsv2.png" alt="Sweatpants V2">
+<h3>Sweatpants V2</h3>
+<p class="price" data-ngn="40000">₦40,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Track Suit -->
+<div class="product" onclick="openProduct('Savage Track Suit',110000,'savagetrack.png',false,false)">
+<img src="savagetrack.png" alt="Savage Track Suit">
+<h3>Savage Track Suit</h3>
+<p class="price" data-ngn="110000">₦110,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Track Jacket -->
+<div class="product" onclick="openProduct('Savage Track Jacket',60000,'trackjacket.png',false,false)">
+<img src="trackjacket.png" alt="Savage Track Jacket">
+<h3>Savage Track Jacket</h3>
+<p class="price" data-ngn="60000">₦60,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Track Pants -->
+<div class="product" onclick="openProduct('Savage Track Pants',50000,'trackpants.png',false,false)">
+<img src="trackpants.png" alt="Savage Track Pants">
+<h3>Savage Track Pants</h3>
+<p class="price" data-ngn="50000">₦50,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+<!-- Red Baby Tee -->
+
+<div class="product" onclick="openProduct('Red Savage Baby Tee',25000,'redbabytee.png',false,false)">
+<img src="redbabytee.png" alt="Red Savage Baby Tee">
+<h3>Red Savage Baby Tee</h3>
+<p class="price" data-ngn="25000">₦25,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Black Baby Tee -->
+
+<div class="product" onclick="openProduct('Black Savage Baby Tee',25000,'blackbabytee.png',false,false)">
+<img src="blackbabytee.png" alt="Black Savage Baby Tee">
+<h3>Black Savage Baby Tee</h3>
+<p class="price" data-ngn="25000">₦25,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Savage Shorts -->
+
+<div class="product" onclick="openProduct('Savage Shorts',13000,'shorts.png',false,true)">
+<img src="shorts.png" alt="Savage Shorts">
+<h3>Savage Shorts</h3>
+<p class="price" data-ngn="13000">₦13,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+
+<!-- Baby Tee Full Set -->
+
+<div class="product" onclick="openProduct('Savage Baby Tee Full Set',38000,'babyteefullset.png',false,true)">
+<img src="babyteefullset.png" alt="Savage Baby Tee Full Set">
+<h3>Savage Baby Tee Full Set</h3>
+<p class="price" data-ngn="38000">₦38,000</p>
+<p class="stock">
+
+🟢 IN STOCK
+
+</p>
+</div>
+</div>
+
+</main>  
+<!-- PRODUCT POPUP -->
+
+<div class="modal" id="productModal">
+
+<div class="modal-content">
+
+<span class="close-btn" id="closeModal">&times;</span>
+
+<div class="popup-left">
+
+<img id="popupImage" src="" alt="Product Image">
+
+<div id="poloButtons" style="display:none; margin-top:15px;">
+
+<button id="frontBtn">FRONT</button>
+
+<button id="backBtn">BACK</button>
+
+</div>
+
+</div>
+
+<div class="popup-right">
+
+<h2 id="popupName"></h2>
+
+<h3 id="popupPrice"></h3>
+
+<label>Size</label>
+
+<select id="popupSize">
+
+<option>EES</option>
+
+<option>ES</option>
+
+<option>S</option>
+
+<option>M</option>
+
+<option>L</option>
+
+<option>XL</option>
+
+<option>XXL</option>
+
+<option>3XL</option>
+
+</select>
+
+<div id="colorSection" style="display:none;">
+
+<label>Colour</label>
+
+<select id="popupColor">
+
+<option>Black</option>
+
+<option>Red</option>
+
+</select>
+
+</div>
+
+<button id="addCartBtn">
+
+ADD TO CART
+
+</button>
+
+</div>
+
+</div>
 <body>
 
 
-<div class="topbar">
-
-BUY NOW AND JOIN THE WAVE
-
 </div>
-
-
-
-<div class="navbar">
-
-<img src="savage-logo.png" class="logo">
-
-<div class="nav-links">
-
-<a href="index.html">HOME</a>
-
-<a href="cart.html">CART</a>
-
-</div>
-
-</div>
-
-
-
-<div class="products">
-
-
 <script>
 
-function getSizeOptions(id){
+let currentProduct = {};
 
-return `
+let currentFrontImage = "";
 
-<select id="${id}">
+let currentBackImage = "";
 
-<option>EES</option>
+let hasBackImage = false;
 
-<option>ES</option>
+let hasColours = false;
 
-<option>S</option>
+function openProduct(name, price, image, backView, colourOption){
 
-<option>M</option>
+currentProduct = {
 
-<option>L</option>
+name:name,
 
-<option>XL</option>
+price:price,
 
-<option>XXL</option>
+image:image
 
-<option>3XL</option>
+};
 
-</select>
+currentFrontImage = image;
 
-`
+hasBackImage = backView;
+
+hasColours = colourOption;
+
+document.getElementById("popupName").innerHTML = name;
+
+document.getElementById("popupPrice").innerHTML =
+"₦" + price.toLocaleString();
+
+document.getElementById("popupImage").src = image;
+
+if(backView){
+
+document.getElementById("poloButtons").style.display = "flex";
+
+if(image==="blackpolo.png"){
+
+currentBackImage="blackpoloback.png";
 
 }
 
+else if(image==="whitepolo.png"){
 
-function addProduct(name, price, image, size){
+currentBackImage="whitepoloback.png";
 
-let cart = JSON.parse(localStorage.getItem("cart")) || []
+}
+
+}else{
+
+document.getElementById("poloButtons").style.display="none";
+
+}
+
+if(colourOption){
+
+document.getElementById("colorSection").style.display="block";
+
+}else{
+
+document.getElementById("colorSection").style.display="none";
+
+}
+
+document.getElementById("productModal").style.display="flex";
+
+}
+
+function closeModal(){
+
+document.getElementById("productModal").style.display="none";
+
+}
+
+function showFront(){
+
+document.getElementById("popupImage").src=currentFrontImage;
+
+}
+
+function showBack(){
+
+if(hasBackImage){
+
+document.getElementById("popupImage").src=currentBackImage;
+
+}
+
+}
+document.getElementById("closeModal").onclick=function(){
+
+closeModal();
+
+};
+
+document.getElementById("frontBtn").onclick=function(){
+
+showFront();
+
+};
+
+document.getElementById("backBtn").onclick=function(){
+
+showBack();
+
+};
+
+window.onclick=function(event){
+
+const modal=document.getElementById("productModal");
+
+if(event.target===modal){
+
+closeModal();
+
+}
+
+};
+/* ---------- ADD TO CART ---------- */
+
+document.getElementById("addCartBtn").onclick = function () {
+  const products = JSON.parse(localStorage.getItem("products")) || [];
+
+const current = products.find(p => p.name === currentProduct.name);
+
+if(current && current.stock <= 0){
+
+    alert("❌ This product is SOLD OUT.");
+
+    return;
+
+}  
+
+const size = document.getElementById("popupSize").value;
+
+let colour = "";
+
+if (hasColours) {
+    colour = document.getElementById("popupColor").value;
+}
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 cart.push({
+    name: currentProduct.name,
+    price: currentProduct.price,
+    image: currentFrontImage,
+    size: size,
+    colour: colour,
+    quantity: 1
+});
 
-name,
+localStorage.setItem("cart", JSON.stringify(cart));
 
-price,
+alert(currentProduct.name + " added to cart!");
 
-image,
+closeModal();
 
-size
+};
 
-})
+/* ---------- SEARCH ---------- */
 
-localStorage.setItem("cart", JSON.stringify(cart))
+const searchBar = document.getElementById("searchBar");
 
-alert("Added to cart")
+searchBar.addEventListener("keyup", function () {
+
+const search = this.value.toLowerCase();
+
+const products = document.querySelectorAll(".product");
+
+products.forEach(function(product){
+
+const name = product.querySelector("h3").textContent.toLowerCase();
+
+if(name.includes(search)){
+
+product.style.display="block";
+
+}else{
+
+product.style.display="none";
 
 }
 
+});
+
+});
+
+/* ---------- FILTERS ---------- */
+
+function filterProducts(type){
+
+const products=document.querySelectorAll(".product");
+
+const buttons=document.querySelectorAll(".filter-btn");
+
+buttons.forEach(btn=>btn.classList.remove("active"));
+
+event.target.classList.add("active");
+
+products.forEach(function(product){
+
+const title=product.querySelector("h3").innerText.toLowerCase();
+
+let show=false;
+
+if(type==="all") show=true;
+
+else if(type==="tee")
+show=title.includes("tee") && !title.includes("baby");
+
+else if(type==="baby")
+show=title.includes("baby");
+
+else if(type==="polo")
+show=title.includes("polo");
+
+else if(type==="bottom")
+show=
+title.includes("short") ||
+title.includes("pant") ||
+title.includes("sweat");
+
+else if(type==="set")
+show=
+title.includes("track") ||
+title.includes("full set");
+
+product.style.display=show?"block":"none";
+
+});
+
+}
+/* ---------- CURRENCY ---------- */
+
+const exchangeRate =
+parseFloat(
+localStorage.getItem("exchangeRate")
+) || 1600;
+
+let currentCurrency = "NGN";
+
+const currency = document.getElementById("currency");
+currency.addEventListener("change", function(){
+
+currentCurrency = this.value;
+
+localStorage.setItem(
+
+"currency",
+
+currentCurrency
+
+);
+
+updatePrices();
+
+});
+const storeSale=
+
+JSON.parse(
+
+localStorage.getItem("storeSale")
+
+)||{
+
+percent:0,
+
+active:false
+
+};
+
+/* ---------- UPDATE PRICES ---------- */
+
+function updatePrices(){
+
+const sale = JSON.parse(localStorage.getItem("storeSale")) || {
+    percent:0,
+    active:false
+};
+
+document.querySelectorAll(".price").forEach(function(price){
+
+const ngn = Number(price.dataset.ngn);
+
+let finalNGN = ngn;
+
+if(sale.active){
+
+finalNGN = Math.round(ngn - (ngn * sale.percent / 100));
+
+}
+
+if(currentCurrency==="NGN"){
+
+if(sale.active){
+
+price.innerHTML =
+"<span style='text-decoration:line-through;color:gray;'>₦"
++ ngn.toLocaleString() +
+"</span><br>" +
+"<span style='color:red;font-size:22px;font-weight:bold;'>₦"
++ finalNGN.toLocaleString() +
+"</span><br>" +
+"<small style='color:red;'>🔥 "
++ sale.percent +
+"% OFF</small>";
+
+}else{
+
+price.innerHTML =
+"₦"+ngn.toLocaleString();
+
+}
+
+}else{
+
+const usd = ngn/exchangeRate;
+
+const saleUSD = finalNGN/exchangeRate;
+
+if(sale.active){
+
+price.innerHTML =
+"<span style='text-decoration:line-through;color:gray;'>$"
++ usd.toFixed(2) +
+"</span><br>" +
+"<span style='color:red;font-size:22px;font-weight:bold;'>$"
++ saleUSD.toFixed(2) +
+"</span><br>" +
+"<small style='color:red;'>🔥 "
++ sale.percent +
+"% OFF</small>";
+
+}else{
+
+price.innerHTML =
+"$"+usd.toFixed(2);
+
+}
+
+}
+
+});
+
+if(currentProduct.name){
+
+let popupPrice=currentProduct.price;
+
+if(sale.active){
+
+popupPrice=Math.round(
+
+currentProduct.price-
+
+(currentProduct.price*sale.percent/100)
+
+);
+
+}
+
+if(currentCurrency==="NGN"){
+
+document.getElementById("popupPrice").innerHTML=
+
+sale.active ?
+
+"<span style='text-decoration:line-through;color:gray;'>₦"+
+currentProduct.price.toLocaleString()+
+"</span><br><span style='color:red;font-size:22px;font-weight:bold;'>₦"+
+popupPrice.toLocaleString()+
+"</span>"
+
+:
+
+"₦"+popupPrice.toLocaleString();
+
+}else{
+
+document.getElementById("popupPrice").innerHTML=
+
+sale.active ?
+
+"<span style='text-decoration:line-through;color:gray;'>$"+
+(currentProduct.price/exchangeRate).toFixed(2)+
+"</span><br><span style='color:red;font-size:22px;font-weight:bold;'>$"+
+(popupPrice/exchangeRate).toFixed(2)+
+"</span>"
+
+:
+
+"$"+(popupPrice/exchangeRate).toFixed(2);
+
+}
+
+}
+
+}
+
+updatePrices();
+
+/* ---------- POPUP PRICE ---------- */
+
+const oldOpenProduct=openProduct;
+
+openProduct=function(name,price,image,backView,colourOption){
+
+oldOpenProduct(name,price,image,backView,colourOption);
+
+updatePrices();
+
+};
+/* ---------- CART COUNT ---------- */
+
+function updateCartCount(){
+
+const cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+document.getElementById("cartCount").innerHTML=cart.length;
+
+}
+/* ---------- GENERAL SETTINGS ---------- */
+
+const websiteSettings =
+
+JSON.parse(
+
+localStorage.getItem("settings")
+
+);
+
+if(websiteSettings){
+
+if(document.getElementById("storeNameText")){
+
+document.getElementById("storeNameText").innerHTML=
+
+websiteSettings.name;
+
+}
+
+document.title=
+
+websiteSettings.name;
+
+}
+
+updateCartCount();
+/* ---------- ANNOUNCEMENT ---------- */
+
+const announcement =
+
+JSON.parse(
+
+localStorage.getItem("announcement")
+
+);
+
+if(
+
+announcement &&
+
+announcement.active
+
+){
+
+document.getElementById("announcementBanner").style.display="block";
+
+document.getElementById("announcementBanner").innerHTML=
+
+"📢 "+announcement.text;
+
+}
+document.getElementById("addCartBtn").addEventListener("click",function(){
+
+setTimeout(updateCartCount,100);
+
+});
+// ================================
+// LOAD PRODUCTS FROM CONTROL PANEL
+// ================================
+
+function loadProductsFromControlPanel(){
+
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+
+    const grid = document.querySelector(".products");
+
+    if(!grid) return;
+
+    grid.innerHTML = "";
+const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+const sales = {};
+
+orders.forEach(order=>{
+
+    order.products.forEach(item=>{
+
+        sales[item.name] = (sales[item.name] || 0) + item.quantity;
+
+    });
+
+});
+
+let popularProduct = "";
+
+let highestSales = 0;
+
+for(const name in sales){
+
+    if(sales[name] > highestSales){
+
+        highestSales = sales[name];
+
+        popularProduct = name;
+
+    }
+
+}
+    products.forEach(product=>{
+
+        if(product.hidden) return;
+
+        const stockText =
+       product.stock === 0
+? "🔴 Sold Out"
+: product.stock <= 2
+? "⚠ Only " + product.stock + " remaining"
+: "🟢 In Stock"
+
+        const stockColor =
+        product.stock > 0
+        ? "#00ff66"
+        : "red";
+
+        grid.innerHTML += `
+
+        <div class="product"
+        onclick="openProduct(
+        '${product.name}',
+        ${product.price},
+        '${product.image}',
+        false,
+        false
+        )">
+
+            <div style="position:relative;">
+
+${
+product.name === popularProduct
+
+?
+
+`<div style="
+position:absolute;
+top:10px;
+left:10px;
+background:red;
+color:white;
+padding:6px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+z-index:2;
+">
+🔥 POPULAR
+</div>`
+
+:
+
+""
+
+}
+
+<img src="${product.image}">
+
+</div>
+
+            <h3>${product.name}</h3>
+
+            <p class="price"
+            data-ngn="${product.price}">
+            ₦${product.price.toLocaleString()}
+            </p>
+
+            <p class="stock"
+            style="color:${stockColor};">
+            ${stockText}
+            </p>
+
+        </div>
+
+        `;
+
+    });
+
+    updatePrices();
+
+}
+
+loadProductsFromControlPanel();
+
 </script>
-
-
-
-<!-- PRODUCT TEMPLATE START -->
-
-<div class="product">
-
-<img src="blacktee.png">
-
-<h3>Black Savage Tee</h3>
-
-<p>₦20000</p>
-
-<select id="blackteeSize">
-
-<option>EES</option>
-
-<option>ES</option>
-
-<option>S</option>
-
-<option>M</option>
-
-<option>L</option>
-
-<option>XL</option>
-
-<option>XXL</option>
-
-<option>3XL</option>
-
-</select>
-
-<button onclick="addProduct(
-
-'Black Savage Tee',
-
-20000,
-
-'blacktee.png',
-
-document.getElementById('blackteeSize').value
-
-)">ADD TO CART</button>
-
-</div>
-
-
-
-<div class="product">
-
-<img src="redtee.png">
-
-<h3>Red Savage Tee</h3>
-
-<p>₦20000</p>
-
-<select id="redteeSize">
-
-<option>EES</option>
-
-<option>ES</option>
-
-<option>S</option>
-
-<option>M</option>
-
-<option>L</option>
-
-<option>XL</option>
-
-<option>XXL</option>
-
-<option>3XL</option>
-
-</select>
-
-<button onclick="addProduct(
-
-'Red Savage Tee',
-
-20000,
-
-'redtee.png',
-
-document.getElementById('redteeSize').value
-
-)">ADD TO CART</button>
-
-</div>
-
-
-
-<div class="product">
-
-<img src="redbabytee.png">
-
-<h3>Red Savage Baby Tee</h3>
-
-<p>₦25000</p>
-
-<select id="redbabySize">
-
-<option>EES</option>
-
-<option>ES</option>
-
-<option>S</option>
-
-<option>M</option>
-
-<option>L</option>
-
-<option>XL</option>
-
-<option>XXL</option>
-
-<option>3XL</option>
-
-</select>
-
-<button onclick="addProduct(
-
-'Red Savage Baby Tee',
-
-25000,
-
-'redbabytee.png',
-
-document.getElementById('redbabySize').value
-
-)">ADD TO CART</button>
-
-</div>
-
-
-
-<div class="product">
-
-<img src="blackbabytee.png">
-
-<h3>Black Savage Baby Tee</h3>
-
-<p>₦25000</p>
-
-<select id="blackbabySize">
-
-<option>EES</option>
-
-<option>ES</option>
-
-<option>S</option>
-
-<option>M</option>
-
-<option>L</option>
-
-<option>XL</option>
-
-<option>XXL</option>
-
-<option>3XL</option>
-
-</select>
-
-<button onclick="addProduct(
-
-'Black Savage Baby Tee',
-
-25000,
-
-'blackbabytee.png',
-
-document.getElementById('blackbabySize').value
-
-)">ADD TO CART</button>
-
-</div>
-
-
-
-<div class="product">
-
-<img src="blackpolo.png">
-
-<h3>Savage Black Polo</h3>
-
-<p>₦40000</p>
-
-<select id="blackpoloSize">
-
-<option>EES</option>
-
-<option>ES</option>
-
-<option>S</option>
-
-<option>M</option>
-
-<option>L</option>
-
-<option>XL</option>
-
-<option>XXL</option>
-
-<option>3XL</option>
-
-</select>
-
-<button onclick="addProduct(
-
-'Savage Black Polo',
-
-40000,
-
-'blackpolo.png',
-
-document.getElementById('blackpoloSize').value
-
-)">ADD TO CART</button>
-
-</div>
-
-
-
-<div class="product">
-
-<img src="whitepolo.png">
-
-<h3>Savage White Polo</h3>
-
-<p>₦40000</p>
-
-<select id="whitepoloSize">
-
-<option>EES</option>
-
-<option>ES</option>
-
-<option>S</option>
-
-<option>M</option>
-
-<option>L</option>
-
-<option>XL</option>
-
-<option>XXL</option>
-
-<option>3XL</option>
-
-</select>
-
-<button onclick="addProduct(
-
-'Savage White Polo',
-
-40000,
-
-'whitepolo.png',
-
-document.getElementById('whitepoloSize').value
-
-)">ADD TO CART</button>
-
-</div>
-
-
-
-<div class="product">
-
-<img src="femaleblackpolo.png">
-
-<h3>Female Black Polo</h3>
-
-<p>₦38000</p>
-
-<select id="femalePoloSize">
-
-<option>EES</option>
-
-<option>ES</option>
-
-<option>S</option>
-
-<option>M</option>
-
-<option>L</option>
-
-<option>XL</option>
-
-<option>XXL</option>
-
-<option>3XL</option>
-
-</select>
-
-<button onclick="addProduct(
-
-'Female Black Polo',
-
-38000,
-
-'femaleblackpolo.png',
-
-document.getElementById('femalePoloSize').value
-
-)">ADD TO CART</button>
-
-</div>
-
-
-
-<div class="product">
-
-<img src="short.png">
-
-<h3>Savage Shorts</h3>
-
-<p>₦13000</p>
-
-<select id="shortSize">
-
-<option>EES</option>
-<option>ES</option>
-<option>S</option>
-<option>M</option>
-<option>L</option>
-<option>XL</option>
-<option>XXL</option>
-<option>3XL</option>
-
-</select>
-
-<select id="shortColor">
-
-<option>Black</option>
-<option>Red</option>
-
-</select>
-
-<button onclick="addProduct(
-
-'Savage Shorts',
-
-13000,
-
-'shorts.png',
-
-document.getElementById('shortSize').value,
-
-document.getElementById('shortColor').value
-
-)">ADD TO CART</button>
-
-</div>
-
-
-
-<div class="product">
-
-<img src="babyteefullset.png">
-
-<h3>Savage Baby Tee Full Set</h3>
-
-<p>₦38000</p>
-
-<select id="setSize">
-
-<option>EES</option>
-<option>ES</option>
-<option>S</option>
-<option>M</option>
-<option>L</option>
-<option>XL</option>
-<option>XXL</option>
-<option>3XL</option>
-
-</select>
-
-<select id="setColor">
-
-<option>Black</option>
-<option>Red</option>
-
-</select>
-
-<button onclick="addProduct(
-
-'Savage Baby Tee Full Set',
-
-38000,
-
-'babyteefullset.png',
-
-document.getElementById('setSize').value,
-
-document.getElementById('setColor').value
-
-)">ADD TO CART</button>
-
-</div>
-<!-- NEW PRODUCTS START -->
-
-<div class="product">
-<img src="societyteev1.png">
-<h3>Society Tee V1</h3>
-<p>₦20000</p>
-<select id="societyv1">
-<option>EES</option><option>ES</option><option>S</option>
-<option>M</option><option>L</option><option>XL</option>
-<option>XXL</option><option>3XL</option>
-</select>
-<button onclick="addProduct(
-'Society Tee V1',
-20000,
-'societyteev1.png',
-document.getElementById('societyv1').value
-)">ADD TO CART</button>
-</div>
-
-
-<div class="product">
-<img src="societyteev2.png">
-<h3>Society Tee V2</h3>
-<p>₦20000</p>
-<select id="societyv2">
-<option>EES</option><option>ES</option><option>S</option>
-<option>M</option><option>L</option><option>XL</option>
-<option>XXL</option><option>3XL</option>
-</select>
-<button onclick="addProduct(
-'Society Tee V2',
-20000,
-'societyteev2.png',
-document.getElementById('societyv2').value
-)">ADD TO CART</button>
-</div>
-
-
-<div class="product">
-<img src="sweatpantsv1.png">
-<h3>Sweatpants V1</h3>
-<p>₦40000</p>
-<select id="sweatpantsv1">
-<option>EES</option><option>ES</option><option>S</option>
-<option>M</option><option>L</option><option>XL</option>
-<option>XXL</option><option>3XL</option>
-</select>
-<button onclick="addProduct(
-'Sweatpants V1',
-40000,
-'sweatpantsv1.png',
-document.getElementById('sweatpantsv1').value
-)">ADD TO CART</button>
-</div>
-
-
-<div class="product">
-<img src="swetpantsv2.png">
-<h3>Sweatpants V2</h3>
-<p>₦40000</p>
-<select id="sweatpantsv2">
-<option>EES</option><option>ES</option><option>S</option>
-<option>M</option><option>L</option><option>XL</option>
-<option>XXL</option><option>3XL</option>
-</select>
-<button onclick="addProduct(
-'Sweatpants V2',
-40000,
-'sweatpantsv2.png',
-document.getElementById('sweatpantsv2').value
-)">ADD TO CART</button>
-</div>
-
-
-<div class="product">
-<img src="savagetrack.png">
-<h3>Savage Track Suit</h3>
-<p>₦110000</p>
-<select id="tracksuit">
-<option>EES</option><option>ES</option><option>S</option>
-<option>M</option><option>L</option><option>XL</option>
-<option>XXL</option><option>3XL</option>
-</select>
-<button onclick="addProduct(
-'Savage Track Suit',
-110000,
-'savagetrack.png',
-document.getElementById('tracksuit').value
-)">ADD TO CART</button>
-</div>
-
-
-<div class="product">
-<img src="trackjacket.png">
-<h3>Savage Track Jacket</h3>
-<p>₦60000</p>
-<select id="trackjacket">
-<option>EES</option><option>ES</option><option>S</option>
-<option>M</option><option>L</option><option>XL</option>
-<option>XXL</option><option>3XL</option>
-</select>
-<button onclick="addProduct(
-'Savage Track Jacket',
-60000,
-'trackjacket.png',
-document.getElementById('trackjacket').value
-)">ADD TO CART</button>
-</div>
-
-
-<div class="product">
-<img src="trackpants.png">
-<h3>Savage Track Pants</h3>
-<p>₦50000</p>
-<select id="trackpants">
-<option>EES</option><option>ES</option><option>S</option>
-<option>M</option><option>L</option><option>XL</option>
-<option>XXL</option><option>3XL</option>
-</select>
-<button onclick="addProduct(
-'Savage Track Pants',
-50000,
-'trackballs.png',
-document.getElementById('trackpants').value
-)">ADD TO CART</button>
-</div>
-
-
-<div class="product">
-<img src="black2piece.png">
-<h3>Black Savage Female 2-Piece</h3>
-<p>₦60000</p>
-<select id="black2piece">
-<option>EES</option><option>ES</option><option>S</option>
-<option>M</option><option>L</option><option>XL</option>
-<option>XXL</option><option>3XL</option>
-</select>
-<button onclick="addProduct(
-'Black Savage Female 2-Piece',
-60000,
-'black2piece.png',
-document.getElementById('black2piece').value
-)">ADD TO CART</button>
-</div>
-
-
-<div class="product">
-<img src="white2piece.png">
-<h3>White Savage Female 2-Piece</h3>
-<p>₦60000</p>
-<select id="white2piece">
-<option>EES</option><option>ES</option><option>S</option>
-<option>M</option><option>L</option><option>XL</option>
-<option>XXL</option><option>3XL</option>
-</select>
-<button onclick="addProduct(
-'White Savage Female 2-Piece',
-60000,
-'whitespace.png',
-document.getElementById('white2piece').value
-)">ADD TO CART</button>
-</div>
-
-<!-- NEW PRODUCTS END -->
-
-
-</div>
-
+<script src="supabase.js"></script>
+<script src="database.js"></script>
+</body>
+</html>
 </body>
 
 </html>
+

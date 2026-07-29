@@ -1,0 +1,2514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Savage Control Panel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+font-family:Arial,sans-serif;
+}
+
+header{
+
+background:#111;
+padding:20px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:2px solid #222;
+
+}
+
+.logo{
+
+height:70px;
+
+}
+
+header h1{
+
+font-family:'Oswald',sans-serif;
+letter-spacing:3px;
+
+}
+
+.dashboard{
+
+padding:35px;
+
+}
+
+.status{
+
+background:#111;
+border:1px solid #333;
+padding:18px;
+border-radius:12px;
+margin-bottom:30px;
+
+}
+
+.status h2{
+
+color:#00ff66;
+
+}
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+
+}
+
+.card{
+
+background:#151515;
+padding:25px;
+border-radius:12px;
+border:1px solid #333;
+cursor:pointer;
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-5px);
+border-color:red;
+box-shadow:0 0 15px rgba(255,0,0,.35);
+
+}
+
+.card h3{
+
+font-family:'Oswald';
+letter-spacing:2px;
+margin-bottom:10px;
+
+}
+
+.card p{
+
+color:#bbb;
+
+}
+
+@media(max-width:768px){
+
+header{
+
+padding:15px;
+flex-direction:column;
+gap:15px;
+
+}
+
+.dashboard{
+
+padding:20px;
+
+}
+
+}
+.quick-actions{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+gap:15px;
+
+margin-bottom:30px;
+
+}
+
+.quick-actions button{
+
+background:red;
+
+color:white;
+
+border:none;
+
+padding:18px;
+
+border-radius:10px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.quick-actions button:hover{
+
+background:#222;
+
+border:1px solid red;
+
+transform:translateY(-3px);
+
+}
+.product-manager{
+
+display:flex;
+
+gap:25px;
+
+background:#111;
+
+padding:20px;
+
+border-radius:12px;
+
+margin-bottom:25px;
+
+align-items:center;
+
+border:1px solid #333;
+
+}
+
+.manager-img{
+
+width:170px;
+
+border-radius:10px;
+
+}
+
+.manager-info{
+
+flex:1;
+
+}
+
+.manager-info input,
+.manager-info select{
+
+margin-bottom:15px;
+
+}
+
+.manager-info button{
+
+margin-top:10px;
+
+}
+
+@media(max-width:768px){
+
+.product-manager{
+
+flex-direction:column;
+
+}
+
+.manager-img{
+
+width:100%;
+
+max-width:250px;
+
+}
+
+}
+.product-list{
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+margin-top:20px;
+
+}
+
+.product-item{
+
+background:#111;
+
+padding:18px;
+
+border-radius:10px;
+
+border:1px solid #333;
+
+cursor:pointer;
+
+transition:.3s;
+
+font-weight:bold;
+
+}
+
+.product-item:hover{
+
+border-color:red;
+
+transform:translateX(8px);
+
+background:#191919;
+
+}
+
+#newProductBtn{
+
+background:red;
+
+color:white;
+
+border:none;
+
+padding:15px 20px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+}
+
+#newProductBtn:hover{
+
+background:#222;
+
+border:1px solid red;
+
+}
+.product-item{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:#111;
+
+padding:15px;
+
+border-radius:12px;
+
+border:1px solid #333;
+
+transition:.3s;
+
+}
+
+.product-left{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+}
+
+.product-thumb{
+
+width:70px;
+
+height:70px;
+
+object-fit:cover;
+
+border-radius:10px;
+
+border:1px solid #333;
+
+}
+
+.menu-btn{
+
+background:none;
+
+border:none;
+
+color:white;
+
+font-size:28px;
+
+cursor:pointer;
+
+padding:5px 12px;
+
+border-radius:8px;
+
+}
+
+.menu-btn:hover{
+
+background:red;
+
+}
+.order-card{
+
+background:#111;
+
+padding:20px;
+
+border-radius:12px;
+
+border:1px solid #333;
+
+margin-top:20px;
+
+}
+
+.paid{
+
+background:#00b300;
+
+padding:6px 12px;
+
+border-radius:6px;
+
+font-weight:bold;
+
+}
+
+#backOrders{
+
+background:red;
+
+color:white;
+
+border:none;
+
+padding:12px 20px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+margin-bottom:20px;
+
+}
+#promoList{
+
+margin-top:20px;
+
+}
+
+.promo-item{
+
+background:#111;
+
+padding:15px;
+
+margin-bottom:15px;
+
+border-radius:10px;
+
+border:1px solid #333;
+
+}
+.productMenu{
+
+display:none;
+
+position:absolute;
+
+background:#222;
+
+padding:8px;
+
+border-radius:10px;
+
+right:0;
+
+margin-top:6px;
+
+z-index:999;
+
+}
+
+.productMenu button{
+
+display:block;
+
+width:170px;
+
+margin:6px 0;
+
+background:#111;
+
+color:white;
+
+border:none;
+
+padding:10px;
+
+cursor:pointer;
+
+text-align:left;
+
+}
+
+.product-item{
+
+position:relative;
+
+}
+.stock-badge{
+
+margin-top:10px;
+
+font-size:14px;
+
+font-weight:bold;
+
+}
+</style>
+
+</head>
+
+<body>
+<script>
+
+const adminPassword = "Latoya";
+
+if(sessionStorage.getItem("adminLoggedIn") !== "true"){
+
+    const entered = prompt("🔒 Enter Admin Password");
+
+    if(entered === adminPassword){
+
+        sessionStorage.setItem("adminLoggedIn","true");
+
+        localStorage.setItem("adminBypass","true");
+
+    }else{
+
+        alert("Incorrect Password.");
+
+        window.location.href = "index.html";
+
+    }
+
+}
+
+</script>
+
+<h3>⏳ Countdown Settings</h3>
+
+<input type="datetime-local" id="countdownDate">
+
+<button onclick="saveCountdown()">
+Save Countdown
+</button>
+<header>
+
+<img src="logo.png" class="logo">
+
+<h1>CONTROL PANEL</h1>
+
+</header>
+
+<div class="dashboard">
+<div class="quick-actions">
+
+<button id="lockBtn">
+🔐 LOCK WEBSITE
+</button>
+
+<button id="maintenanceBtn">
+🛠 MAINTENANCE
+</button>
+
+<button id="promoBtn">
+🎟 NEW PROMO
+</button>
+
+<button id="addProductBtn">
+📦 ADD PRODUCT
+</button>
+
+<button id="ordersBtn">
+🛒 VIEW ORDERS
+</button>
+
+</div>
+<div class="status">
+
+<h2>🟢 WEBSITE STATUS : LIVE</h2>
+
+<p>Welcome back, Conrad.</p>
+
+</div>
+
+<div class="grid">
+
+<div class="card" id="productsCard">
+
+<h3>📦 Products</h3>
+
+<p>Edit products, prices and stock.</p>
+
+</div>
+
+<div class="card" id="ordersCard">
+
+<h3>🛒 Orders</h3>
+
+<p>View customer orders.</p>
+
+</div>
+
+<div class="card" id="promoCard">
+
+<h3>🎟 Promo Codes</h3>
+
+<p>Manage discounts.</p>
+
+</div>
+
+<div class="card" id="shippingCard">
+
+<h3>🚚 Shipping</h3>
+
+<p>Edit shipping prices.</p>
+
+</div>
+
+
+
+<div class="card" id="exchangeCard">
+
+<h3>💱 Exchange Rate</h3>
+
+<p>Update Dollar ⇄ Naira.</p>
+
+</div>
+
+<div class="card" id="announcementCard">
+
+<h3>📢 Announcements</h3>
+
+<p>Edit website banner.</p>
+
+</div>
+<div class="card" id="storeSaleCard">
+
+<h3>🔥 Store Sale</h3>
+
+<p>Manage website-wide discounts.</p>
+
+</div>
+<div class="card">
+
+<h3>🔐 Website Lock</h3>
+
+<p>Lock or unlock the website.</p>
+
+</div>
+
+
+<div class="card" id="settingsCard">
+
+<h3>⚙️ General Settings</h3>
+
+<p>Edit website details.</p>
+
+</div>
+<div class="card" id="websiteLockCard">
+
+<h3>🔒 Website Lock</h3>
+
+<p>Open or close your website.</p>
+
+</div>
+<div class="card">
+    <h3>🌍 Total Visits</h3>
+    <h1 id="totalVisits">0</h1>
+</div>
+
+<div class="card">
+    <h3>📅 Today</h3>
+    <h1 id="todayVisits">0</h1>
+</div>
+
+<div class="card">
+    <h3>📈 This Week</h3>
+    <h1 id="weekVisits">0</h1>
+</div>
+
+<div class="card">
+    <h3>🗓️ This Month</h3>
+    <h1 id="monthVisits">0</h1>
+</div>
+
+<div class="card">
+    <h3>🎯 This Year</h3>
+    <h1 id="yearVisits">0</h1>
+</div>
+</div>
+
+</div>
+<div id="addProductPanel" style="display:none;padding:30px;">
+
+<h2>➕ ADD NEW PRODUCT</h2>
+
+<label>Product Name</label>
+<input type="text" id="newName">
+
+<label>Image Filename</label>
+<input type="text" id="newImage" placeholder="example.png">
+
+<label>Price</label>
+<input type="number" id="newPrice">
+
+<label>Stock</label>
+<input type="number" id="newStock">
+
+<label>Status</label>
+
+<select id="newStatus">
+
+<option>Available</option>
+
+<option>Sold Out</option>
+
+<option>Hidden</option>
+
+</select>
+
+<button id="saveNewProduct">
+
+SAVE PRODUCT
+
+</button>
+
+<br><br>
+
+<button id="cancelNewProduct">
+
+⬅ Back
+
+</button>
+
+</div>
+<div id="productsPanel" style="display:none;padding:30px;">
+
+<h2>📦 PRODUCT MANAGER</h2>
+
+<button id="newProductBtn">
+➕ ADD PRODUCT
+</button>
+
+<br><br>
+
+<div id="productsContainer"></div>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+</div>
+<div id="ordersPanel" style="display:none;padding:30px;">
+
+<h2>🛒 ORDERS</h2>
+
+<button id="backOrders">
+
+⬅ Back To Dashboard
+
+</button>
+
+<br><br>
+
+<div id="ordersContainer"></div>
+
+</div>
+
+<div id="exchangePanel" style="display:none;padding:30px;">
+
+<h2>💱 EXCHANGE RATE</h2>
+
+<button id="backExchange">
+
+⬅ Back
+
+</button>
+
+<br><br>
+
+<label>
+
+1 USD =
+
+</label>
+
+<input
+type="number"
+id="exchangeInput"
+placeholder="1600"
+>
+
+<button id="saveExchange">
+
+SAVE RATE
+
+</button>
+
+<p
+id="exchangeSaved"
+style="
+color:#00ff66;
+margin-top:15px;
+font-weight:bold;
+">
+</p>
+</div>
+<div id="websiteLockPanel" style="display:none;padding:30px;">
+
+<h2>🔒 WEBSITE STATUS</h2>
+
+<button id="backWebsiteLock">
+
+⬅ Back
+
+</button>
+
+<br><br>
+
+<p>
+
+Current Status:
+
+<span id="websiteStatusText">
+
+LIVE
+
+</span>
+
+</p>
+
+<button id="toggleWebsiteStatus">
+
+LOCK WEBSITE
+
+</button>
+
+</div>
+<div id="promoPanel" style="display:none;padding:30px;">
+
+<h2>🎟 PROMO MANAGER</h2>
+
+<button id="backPromo">
+
+⬅ Back
+
+</button>
+
+<br><br>
+
+<label>Promo Code</label>
+
+<input
+type="text"
+id="promoName"
+placeholder="WELCOME10">
+
+<label>Discount (%)</label>
+
+<input
+type="number"
+id="promoDiscount"
+placeholder="10">
+
+<button id="savePromo">
+
+SAVE PROMO
+
+</button>
+
+<br><br>
+
+<h3>Saved Promo Codes</h3>
+
+<div id="promoList">
+
+No promo codes yet.
+
+</div>
+
+</div>
+<div id="storeSalePanel" style="display:none;padding:30px;">
+
+<h2>🔥 STORE SALE</h2>
+
+<button id="backStoreSale">
+
+⬅ Back
+
+</button>
+
+<br><br>
+
+<label>
+
+Discount Percentage
+
+</label>
+
+<input
+type="number"
+id="salePercent"
+placeholder="20">
+
+<br><br>
+
+<button id="saveSale">
+
+SAVE
+
+</button>
+
+<button id="activateSale">
+
+ACTIVATE
+
+</button>
+
+<button id="deactivateSale">
+
+DEACTIVATE
+
+</button>
+
+<br><br>
+
+<h3>
+
+Status:
+
+<span id="saleStatus">
+
+🔴 OFF
+
+</span>
+
+</h3>
+
+</div>
+<div id="shippingPanel" style="display:none;padding:30px;">
+
+<h2>🚚 SHIPPING MANAGER</h2>
+
+<button id="backShipping">
+
+⬅ Back
+
+</button>
+
+<br><br>
+
+<label>Lagos Mainland</label>
+
+<input
+type="number"
+id="mainlandFee">
+
+<label>Lagos Island</label>
+
+<input
+type="number"
+id="islandFee">
+
+<label>Other States</label>
+
+<input
+type="number"
+id="otherFee">
+
+<label>Houston Delivery</label>
+
+<input
+type="number"
+id="houstonFee">
+
+<button id="saveShipping">
+
+SAVE SHIPPING
+
+</button>
+
+<p
+id="shippingSaved"
+style="color:#00ff66;">
+</p>
+
+</div>
+<div id="announcementPanel" style="display:none;padding:30px;">
+
+<h2>📢 ANNOUNCEMENT MANAGER</h2>
+
+<button id="backAnnouncement">
+
+⬅ Back
+
+</button>
+
+<br><br>
+
+<label>Announcement</label>
+
+<textarea
+id="announcementText"
+rows="5"
+style="width:100%;padding:12px;border-radius:8px;"></textarea>
+
+<br><br>
+
+<button id="saveAnnouncement">
+
+SAVE
+
+</button>
+
+<button id="enableAnnouncement">
+
+ENABLE
+
+</button>
+
+<button id="disableAnnouncement">
+
+DISABLE
+
+</button>
+
+<br><br>
+
+<h3>
+
+Status:
+
+<span id="announcementStatus">
+
+🔴 OFF
+
+</span>
+
+</h3>
+
+</div>
+<div id="settingsPanel" style="display:none;padding:30px;">
+
+<h2>⚙ GENERAL SETTINGS</h2>
+
+<button id="backSettings">
+
+⬅ Back
+
+</button>
+
+<br><br>
+
+<label>Store Name</label>
+
+<input type="text" id="storeName">
+
+<label>Support Email</label>
+
+<input type="email" id="storeEmail">
+
+<label>WhatsApp Number</label>
+
+<input type="text" id="storeWhatsapp">
+
+<label>Instagram</label>
+
+<input type="text" id="storeInstagram">
+
+<label>TikTok</label>
+
+<input type="text" id="storeTikTok">
+
+<label>Snapchat</label>
+
+<input type="text" id="storeSnap">
+
+<br><br>
+
+<button id="saveSettings">
+
+SAVE SETTINGS
+
+</button>
+
+<p id="settingsSaved" style="color:#00ff66;"></p>
+
+</div>
+<input type="datetime-local" id="launchDateInput">
+
+<button onclick="saveLaunchDate()">
+SAVE COUNTDOWN
+</button>
+<script>
+
+document.getElementById("lockBtn").onclick=function(){
+
+alert("🔐 Website Lock Panel Coming Soon");
+
+}
+
+document.getElementById("maintenanceBtn").onclick=function(){
+
+alert("🛠 Maintenance Mode Coming Soon");
+
+}
+
+document.getElementById("promoBtn").onclick=function(){
+
+alert("🎟 Promo Manager Coming Soon");
+
+}
+
+document.getElementById("addProductBtn").onclick=function(){
+
+alert("📦 Product Manager Coming Soon");
+
+}
+
+document.getElementById("ordersBtn").onclick=function(){
+
+alert("🛒 Orders Dashboard Coming Soon");
+
+}
+document.getElementById("productsCard").onclick=function(){
+
+document.querySelector(".dashboard").style.display="none";
+
+document.getElementById("productsPanel").style.display="block";
+
+}
+document.getElementById("newProductBtn").onclick = function () {
+
+document.getElementById("addProductModal").style.display = "flex";
+
+};
+
+document.getElementById("cancelNewProduct").onclick=function(){
+
+document.getElementById("addProductPanel").style.display="none";
+
+document.getElementById("productsPanel").style.display="block";
+
+}
+
+document.getElementById("saveNewProduct").onclick=function(){
+
+alert("✅ Product saved! (Database coming in a later batch)");
+
+}
+document.getElementById("ordersCard").onclick=function(){
+
+document.querySelector(".dashboard").style.display="none";
+
+document.getElementById("ordersPanel").style.display="block";
+
+loadOrders();
+
+}
+
+document.getElementById("backOrders").onclick=function(){
+
+document.getElementById("ordersPanel").style.display="none";
+
+document.querySelector(".dashboard").style.display="block";
+
+}
+function deductStock(order){
+
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+
+    order.products.forEach(item=>{
+
+        let product = products.find(p=>p.name===item.name);
+
+        if(product){
+
+            product.stock -= (item.quantity || 1);
+
+            if(product.stock < 0){
+                product.stock = 0;
+            }
+
+            if(product.stock === 0){
+                product.status = "Sold Out";
+            }
+
+        }
+
+    });
+
+    localStorage.setItem("products", JSON.stringify(products));
+
+}
+let currentProduct = null;
+function loadOrders(){
+
+const container =
+document.getElementById("ordersContainer");
+
+if(!container) return;
+
+container.innerHTML="";
+
+let orders =
+JSON.parse(localStorage.getItem("orders")) || [];
+
+if(orders.length===0){
+
+container.innerHTML=`
+<h3>No orders yet.</h3>
+`;
+
+return;
+
+}
+
+orders.reverse().forEach(order=>{
+
+if(!order.stockUpdated){
+
+deductStock(order);
+
+order.stockUpdated = true;
+saveProducts();
+renderProducts();
+}
+
+
+let products="";
+
+order.products.forEach(item=>{
+
+products+=`
+<li>
+${item.name}
+(${item.size})
+-
+₦${item.price}
+</li>
+`;
+
+});
+
+container.innerHTML+=`
+
+<div class="order-card">
+
+<h3>${order.orderId}</h3>
+
+<p><strong>Customer:</strong> ${order.customer}</p>
+
+<p><strong>Email:</strong> ${order.email}</p>
+
+<p><strong>Address:</strong> ${order.address}</p>
+
+<p><strong>Delivery:</strong> ${order.delivery}</p>
+
+<p><strong>Date:</strong> ${order.date}</p>
+
+<p><strong>Payment Ref:</strong> ${order.paymentReference}</p>
+
+<p><strong>Products</strong></p>
+
+<ul>
+
+${products}
+
+</ul>
+
+<p>
+
+<strong>Total:</strong>
+
+₦${order.total}
+
+</p>
+
+<p>
+
+<strong>Status:</strong>
+
+<span class="paid">
+
+${order.status}
+
+</span>
+
+</p>
+
+</div>
+
+`;
+
+});
+localStorage.setItem(
+"orders",
+JSON.stringify(orders.reverse())
+);
+}
+document.getElementById("exchangeCard").onclick=function(){
+
+document.querySelector(".dashboard").style.display="none";
+
+document.getElementById("exchangePanel").style.display="block";
+
+document.getElementById("exchangeInput").value=
+
+localStorage.getItem("exchangeRate")||1600;
+
+}
+
+document.getElementById("backExchange").onclick=function(){
+
+document.getElementById("exchangePanel").style.display="none";
+
+document.querySelector(".dashboard").style.display="block";
+
+}
+
+document.getElementById("saveExchange").onclick=function(){
+
+const rate=
+
+document.getElementById("exchangeInput").value;
+
+localStorage.setItem(
+
+"exchangeRate",
+
+rate
+
+);
+
+document.getElementById("exchangeSaved").innerHTML=
+
+"✅ Exchange rate saved.";
+
+}
+document.getElementById("websiteLockCard").onclick=function(){
+
+document.querySelector(".dashboard").style.display="none";
+
+document.getElementById("websiteLockPanel").style.display="block";
+
+updateWebsiteStatus();
+
+}
+
+document.getElementById("backWebsiteLock").onclick=function(){
+
+document.getElementById("websiteLockPanel").style.display="none";
+
+document.querySelector(".dashboard").style.display="block";
+
+}
+
+function updateWebsiteStatus(){
+
+const locked=
+
+localStorage.getItem("websiteLocked")==="true";
+
+document.getElementById("websiteStatusText").innerHTML=
+
+locked?"🔴 LOCKED":"🟢 LIVE";
+
+document.getElementById("toggleWebsiteStatus").innerHTML=
+
+locked?"UNLOCK WEBSITE":"LOCK WEBSITE";
+
+}
+
+document.getElementById("toggleWebsiteStatus").onclick=function(){
+
+const locked=
+
+localStorage.getItem("websiteLocked")==="true";
+
+localStorage.setItem(
+
+"websiteLocked",
+
+(!locked).toString()
+
+);
+
+updateWebsiteStatus();
+
+}
+
+updateWebsiteStatus();
+document.getElementById("promoCard").onclick=function(){
+
+document.querySelector(".dashboard").style.display="none";
+
+document.getElementById("promoPanel").style.display="block";
+
+loadPromos();
+
+}
+
+document.getElementById("backPromo").onclick=function(){
+
+document.getElementById("promoPanel").style.display="none";
+
+document.querySelector(".dashboard").style.display="block";
+
+}
+
+function loadPromos(){
+
+const list=
+
+document.getElementById("promoList");
+
+let promos=
+
+JSON.parse(localStorage.getItem("promos"))||[];
+
+if(promos.length===0){
+
+list.innerHTML="No promo codes yet.";
+
+return;
+
+}
+
+list.innerHTML="";
+
+promos.forEach(function(promo,index){
+
+list.innerHTML+=`
+
+<div class="promo-item">
+
+<strong>${promo.code}</strong>
+
+<br>
+
+${promo.discount}% OFF
+
+<br><br>
+
+Status:
+
+${promo.active?
+
+"<span style='color:#00ff66;'>🟢 ACTIVE</span>":
+
+"<span style='color:red;'>🔴 DISABLED</span>"}
+
+<br><br>
+
+<button onclick="togglePromo(${index})">
+
+${promo.active?"Disable":"Enable"}
+
+</button>
+
+<button onclick="deletePromo(${index})">
+
+Delete
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+function togglePromo(index){
+
+let promos=
+
+JSON.parse(localStorage.getItem("promos"))||[];
+
+promos[index].active=
+
+!promos[index].active;
+
+localStorage.setItem(
+
+"promos",
+
+JSON.stringify(promos)
+
+);
+
+loadPromos();
+
+}
+
+function deletePromo(index){
+
+let promos=
+
+JSON.parse(localStorage.getItem("promos"))||[];
+
+promos.splice(index,1);
+
+localStorage.setItem(
+
+"promos",
+
+JSON.stringify(promos)
+
+);
+
+loadPromos();
+
+}
+document.getElementById("savePromo").onclick=function(){
+
+let promos=
+
+JSON.parse(localStorage.getItem("promos"))||[];
+
+promos.push({
+
+code:
+
+document.getElementById("promoName").value.toUpperCase(),
+
+discount:
+
+Number(document.getElementById("promoDiscount").value),
+
+active:true
+
+});
+
+localStorage.setItem(
+
+"promos",
+
+JSON.stringify(promos)
+
+);
+
+document.getElementById("promoName").value="";
+
+document.getElementById("promoDiscount").value="";
+
+loadPromos();
+
+}
+document.getElementById("storeSaleCard").onclick=function(){
+
+document.querySelector(".dashboard").style.display="none";
+
+document.getElementById("storeSalePanel").style.display="block";
+
+loadSale();
+
+}
+
+document.getElementById("backStoreSale").onclick=function(){
+
+document.getElementById("storeSalePanel").style.display="none";
+
+document.querySelector(".dashboard").style.display="block";
+
+}
+
+function loadSale(){
+
+const sale=
+
+JSON.parse(localStorage.getItem("storeSale"))||
+
+{
+
+percent:0,
+
+active:false
+
+};
+
+document.getElementById("salePercent").value=
+
+sale.percent;
+
+document.getElementById("saleStatus").innerHTML=
+
+sale.active?
+
+"🟢 ACTIVE":
+
+"🔴 OFF";
+
+}
+
+document.getElementById("saveSale").onclick=function(){
+
+let sale=
+
+JSON.parse(localStorage.getItem("storeSale"))||
+
+{
+
+percent:0,
+
+active:false
+
+};
+
+sale.percent=
+
+Number(document.getElementById("salePercent").value);
+
+localStorage.setItem(
+
+"storeSale",
+
+JSON.stringify(sale)
+
+);
+
+loadSale();
+
+}
+
+document.getElementById("activateSale").onclick=function(){
+
+let sale=
+
+JSON.parse(localStorage.getItem("storeSale"));
+
+sale.active=true;
+
+localStorage.setItem(
+
+"storeSale",
+
+JSON.stringify(sale)
+
+);
+
+loadSale();
+
+}
+
+document.getElementById("deactivateSale").onclick=function(){
+
+let sale=
+
+JSON.parse(localStorage.getItem("storeSale"));
+
+sale.active=false;
+
+localStorage.setItem(
+
+"storeSale",
+
+JSON.stringify(sale)
+
+);
+
+loadSale();
+
+}
+
+loadSale();
+document.getElementById("shippingCard").onclick=function(){
+
+document.querySelector(".dashboard").style.display="none";
+
+document.getElementById("shippingPanel").style.display="block";
+
+loadShipping();
+
+}
+
+document.getElementById("backShipping").onclick=function(){
+
+document.getElementById("shippingPanel").style.display="none";
+
+document.querySelector(".dashboard").style.display="block";
+
+}
+
+function loadShipping(){
+
+const shipping=
+
+JSON.parse(localStorage.getItem("shipping"))||
+
+{
+
+mainland:6000,
+
+island:8000,
+
+other:12000,
+
+houston:16000
+
+};
+
+document.getElementById("mainlandFee").value=
+
+shipping.mainland;
+
+document.getElementById("islandFee").value=
+
+shipping.island;
+
+document.getElementById("otherFee").value=
+
+shipping.other;
+
+document.getElementById("houstonFee").value=
+
+shipping.houston;
+
+}
+
+document.getElementById("saveShipping").onclick=function(){
+
+const shipping={
+
+mainland:Number(document.getElementById("mainlandFee").value),
+
+island:Number(document.getElementById("islandFee").value),
+
+other:Number(document.getElementById("otherFee").value),
+
+houston:Number(document.getElementById("houstonFee").value)
+
+};
+
+localStorage.setItem(
+
+"shipping",
+
+JSON.stringify(shipping)
+
+);
+
+document.getElementById("shippingSaved").innerHTML=
+
+"✅ Shipping prices saved.";
+
+}
+document.getElementById("announcementCard").onclick=function(){
+
+document.querySelector(".dashboard").style.display="none";
+
+document.getElementById("announcementPanel").style.display="block";
+
+loadAnnouncement();
+
+}
+
+document.getElementById("backAnnouncement").onclick=function(){
+
+document.getElementById("announcementPanel").style.display="none";
+
+document.querySelector(".dashboard").style.display="block";
+
+}
+
+function loadAnnouncement(){
+
+const announcement=
+
+JSON.parse(localStorage.getItem("announcement"))||
+
+{
+
+text:"",
+
+active:false
+
+};
+
+document.getElementById("announcementText").value=
+
+announcement.text;
+
+document.getElementById("announcementStatus").innerHTML=
+
+announcement.active?
+
+"🟢 ACTIVE":
+
+"🔴 OFF";
+
+}
+
+document.getElementById("saveAnnouncement").onclick=function(){
+
+let announcement=
+
+JSON.parse(localStorage.getItem("announcement"))||
+
+{
+
+text:"",
+
+active:false
+
+};
+
+announcement.text=
+
+document.getElementById("announcementText").value;
+
+localStorage.setItem(
+
+"announcement",
+
+JSON.stringify(announcement)
+
+);
+
+loadAnnouncement();
+
+}
+
+document.getElementById("enableAnnouncement").onclick=function(){
+
+let announcement=
+
+JSON.parse(localStorage.getItem("announcement"));
+
+announcement.active=true;
+
+localStorage.setItem(
+
+"announcement",
+
+JSON.stringify(announcement)
+
+);
+
+loadAnnouncement();
+
+}
+
+document.getElementById("disableAnnouncement").onclick=function(){
+
+let announcement=
+
+JSON.parse(localStorage.getItem("announcement"));
+
+announcement.active=false;
+
+localStorage.setItem(
+
+"announcement",
+
+JSON.stringify(announcement)
+
+);
+
+loadAnnouncement();
+
+}
+
+loadAnnouncement();
+document.getElementById("settingsCard").onclick=function(){
+
+document.querySelector(".dashboard").style.display="none";
+
+document.getElementById("settingsPanel").style.display="block";
+
+loadSettings();
+
+}
+
+document.getElementById("backSettings").onclick=function(){
+
+document.getElementById("settingsPanel").style.display="none";
+
+document.querySelector(".dashboard").style.display="block";
+
+}
+
+function loadSettings(){
+
+const settings=
+
+JSON.parse(localStorage.getItem("settings"))||
+
+{
+
+name:"Savage",
+
+email:"",
+
+whatsapp:"",
+
+instagram:"",
+
+tiktok:"",
+
+snap:""
+
+};
+
+storeName.value=settings.name;
+
+storeEmail.value=settings.email;
+
+storeWhatsapp.value=settings.whatsapp;
+
+storeInstagram.value=settings.instagram;
+
+storeTikTok.value=settings.tiktok;
+
+storeSnap.value=settings.snap;
+
+}
+
+document.getElementById("saveSettings").onclick=function(){
+
+const settings={
+
+name:storeName.value,
+
+email:storeEmail.value,
+
+whatsapp:storeWhatsapp.value,
+
+instagram:storeInstagram.value,
+
+tiktok:storeTikTok.value,
+
+snap:storeSnap.value
+
+};
+
+localStorage.setItem(
+
+"settings",
+
+JSON.stringify(settings)
+
+);
+
+document.getElementById("settingsSaved").innerHTML=
+
+"✅ Settings Saved";
+
+}
+
+loadSettings();
+
+// ================================
+// PRODUCT FUNCTIONS
+// ================================
+
+function toggleMenu(button){
+
+document.querySelectorAll(".productMenu").forEach(menu=>{
+
+if(menu!==button.nextElementSibling){
+
+menu.style.display="none";
+
+}
+
+});
+
+const menu=button.nextElementSibling;
+
+menu.style.display=
+menu.style.display==="block"
+?
+"none"
+:
+"block";
+
+}
+
+function hideProduct(index){
+
+products[index].hidden=true;
+
+saveProducts();
+
+renderProducts();
+
+}
+
+function makeLive(index){
+
+products[index].hidden=false;
+
+saveProducts();
+
+renderProducts();
+
+}
+
+function deleteProduct(index){
+
+if(confirm("Delete "+products[index].name+" ?")){
+
+products.splice(index,1);
+
+saveProducts();
+
+renderProducts();
+
+}
+
+}
+
+function restockProduct(index){
+
+let amount=prompt(
+
+"Enter new stock",
+
+products[index].stock
+
+);
+
+if(amount===null)return;
+
+amount=Number(amount);
+
+if(isNaN(amount)||amount<0)return;
+
+products[index].stock=amount;
+
+saveProducts();
+
+renderProducts();
+
+}
+
+function changePrice(index){
+
+let price=prompt(
+
+"Enter new price",
+
+products[index].price
+
+);
+
+if(price===null)return;
+
+price=Number(price);
+
+if(isNaN(price)||price<0)return;
+
+products[index].price=price;
+
+saveProducts();
+
+renderProducts();
+
+}
+// ============================
+// WEBSITE ANALYTICS
+// ============================
+
+function updateWebsiteAnalytics(){
+
+    const analytics = JSON.parse(localStorage.getItem("websiteAnalytics")) || {
+        total:0,
+        today:0,
+        week:0,
+        month:0,
+        year:0
+    };
+
+    document.getElementById("totalVisits").textContent = analytics.total || 0;
+    document.getElementById("todayVisits").textContent = analytics.today || 0;
+    document.getElementById("weekVisits").textContent = analytics.week || 0;
+    document.getElementById("monthVisits").textContent = analytics.month || 0;
+    document.getElementById("yearVisits").textContent = analytics.year || 0;
+
+}
+
+updateWebsiteAnalytics();
+// ================================
+// PRODUCT DATABASE
+// ================================
+
+let products = JSON.parse(localStorage.getItem("products")) || [
+
+{
+id:1,
+name:"Black Savage Tee",
+image:"blacktee.png",
+price:20000,
+stock:0,
+hidden:false
+},
+
+{
+id:2,
+name:"Red Savage Tee",
+image:"redtee.png",
+price:20000,
+stock:0,
+hidden:false
+},
+
+{
+id:3,
+name:"Society Tee",
+image:"societyteev1.png",
+price:20000,
+stock:0,
+hidden:false
+},
+
+{
+id:4,
+name:"Society Tee V2",
+image:"societyteev2.png",
+price:20000,
+stock:0,
+hidden:false
+},
+
+{
+id:5,
+name:"Black Baby Tee",
+image:"blackbabytee.png",
+price:25000,
+stock:0,
+hidden:false
+},
+
+{
+id:6,
+name:"Red Baby Tee",
+image:"redbabytee.png",
+price:25000,
+stock:0,
+hidden:false
+},
+
+{
+id:7,
+name:"Baby Tee Full Set",
+image:"babyteefullset.png",
+price:38000,
+stock:0,
+hidden:false
+},
+
+{
+id:8,
+name:"Savage Shorts",
+image:"shorts.png",
+price:13000,
+stock:0,
+hidden:false
+},
+
+{
+id:9,
+name:"Black Polo",
+image:"blackpolo.png",
+price:55000,
+stock:0,
+hidden:false
+},
+
+{
+id:10,
+name:"White Polo",
+image:"whitepolo.png",
+price:55000,
+stock:0,
+hidden:false
+},
+
+{
+id:11,
+name:"Track Jacket",
+image:"trackjacket.png",
+price:60000,
+stock:0,
+hidden:false
+},
+
+{
+id:12,
+name:"Sweatpants V1",
+image:"sweatpantsv1.png",
+price:40000,
+stock:0,
+hidden:false
+},
+
+{
+id:15,
+name:"Track Pants",
+image:"trackpants.png",
+price:50000,
+stock:0,
+hidden:false
+},
+
+{
+id:13,
+name:"Sweatpants V2",
+image:"sweatpantsv2.png",
+price:40000,
+stock:0,
+hidden:false
+},
+
+{
+id:14,
+name:"Tracksuit",
+image:"savagetrack.png",
+price:110000,
+stock:0,
+hidden:false
+}
+
+];
+
+function saveProducts(){
+
+localStorage.setItem(
+"products",
+JSON.stringify(products)
+);
+
+}
+function renderProducts(){
+
+const container = document.getElementById("productsContainer");
+
+if(!container) return;
+
+container.innerHTML = "";
+
+products.forEach((product,index)=>{
+
+container.innerHTML += `
+
+<div class="product-item">
+
+<div class="product-left">
+
+<img src="${product.image}" class="product-thumb">
+
+<div>
+
+<h3>${product.name}</h3>
+
+<p>₦${product.price.toLocaleString()}</p>
+
+<p>
+
+Stock:
+<b>${product.stock}</b>
+
+|
+
+${
+product.stock === 0
+? "<span style='color:red'>🔴 Sold Out</span>"
+: product.stock <= 2
+? "<span style='color:orange'>⚠ Only " + product.stock + " remaining</span>"
+: "<span style='color:#00ff66'>🟢 In Stock</span>"
+}
+
+</p>
+${product.hidden
+
+? "<p style='color:orange;'>🙈 Hidden From Shop</p>"
+
+: ""}
+
+</div>
+
+</div>
+
+<button class="menu-btn" onclick="toggleMenu(this)">
+⋮
+</button>
+
+<div class="productMenu">
+
+<button onclick="hideProduct(${index})">
+🙈 Hide From Shop
+</button>
+
+<button onclick="makeLive(${index})">
+🌍 Make Live
+</button>
+
+<button onclick="restockProduct(${index})">
+📦 Restock
+</button>
+
+<button onclick="changePrice(${index})">
+💰 Change Price
+</button>
+
+<button onclick="deleteProduct(${index})">
+🗑 Delete
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+renderProducts();
+function closeAddProduct(){
+
+document.getElementById("addProductModal").style.display = "none";
+
+}
+
+async function saveNewProduct(){
+
+const newProduct = {
+
+
+
+name: document.getElementById("newName").value,
+
+price: Number(document.getElementById("newPrice").value),
+
+image: document.getElementById("newImage").value,
+
+stock: Number(document.getElementById("newStock").value),
+
+hidden: false,
+
+category: document.getElementById("newCategory").value
+
+};
+
+// Save to Supabase
+const { error } = await supabaseClient
+  .from("products")
+  .insert([newProduct]);
+
+if(error){
+
+console.error(error);
+
+alert("❌ Failed to save product.");
+
+return;
+
+}
+
+// Keep local copy too
+products.push(newProduct);
+
+saveProducts();
+
+renderProducts();
+
+closeAddProduct();
+
+document.getElementById("newName").value = "";
+
+document.getElementById("newPrice").value = "";
+
+document.getElementById("newImage").value = "";
+
+document.getElementById("newStock").value = "";
+
+alert("✅ Product Added Successfully");
+
+}
+function saveCountdown() {
+    const date = document.getElementById("countdownDate").value;
+
+    localStorage.setItem("countdownDate", date);
+
+    alert("✅ Countdown updated!");
+}
+
+window.onload = () => {
+    const saved = localStorage.getItem("countdownDate");
+
+    if(saved){
+        document.getElementById("countdownDate").value = saved;
+    }
+}
+function saveLaunchDate(){
+
+const date=document.getElementById("launchDateInput").value;
+
+localStorage.setItem("launchDate",date);
+
+alert("✅ Countdown Updated");
+
+}
+</script>
+
+}
+<div id="stockPopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.75);justify-content:center;align-items:center;z-index:9999;">
+
+<div style="background:#151515;width:420px;padding:30px;border-radius:15px;border:1px solid #333;">
+
+<h2 style="margin-bottom:20px;font-family:'Oswald';">
+📦 Restock Product
+</h2>
+
+<p id="stockProductName"></p>
+
+<br>
+
+<label>Current Stock</label>
+
+<input
+type="number"
+id="currentStock"
+readonly
+style="width:100%;padding:12px;margin-top:8px;margin-bottom:20px;">
+
+<label>New Stock</label>
+
+<input
+type="number"
+id="newStockAmount"
+placeholder="Enter stock..."
+style="width:100%;padding:12px;margin-top:8px;">
+
+<br><br>
+
+<button id="saveStockBtn"
+style="background:red;color:white;border:none;padding:15px 25px;border-radius:10px;cursor:pointer;">
+
+SAVE STOCK
+
+</button>
+
+<button id="cancelStockBtn"
+style="background:#222;color:white;border:none;padding:15px 25px;border-radius:10px;cursor:pointer;float:right;">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+<div id="addProductModal" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.8);
+justify-content:center;
+align-items:center;
+z-index:9999;
+">
+
+<div style="
+background:#111;
+padding:25px;
+width:420px;
+border-radius:15px;
+border:2px solid red;
+">
+
+<h2 style="margin-bottom:20px;">Add Product</h2>
+
+<input id="newName" placeholder="Product Name"
+style="width:100%;padding:12px;margin-bottom:12px;">
+
+<input id="newPrice" type="number"
+placeholder="Price"
+style="width:100%;padding:12px;margin-bottom:12px;">
+
+<input id="newImage"
+placeholder="Image filename (example: trackpant.png)"
+style="width:100%;padding:12px;margin-bottom:12px;">
+
+<input id="newStock"
+type="number"
+placeholder="Stock"
+style="width:100%;padding:12px;margin-bottom:12px;">
+
+<select id="newCategory"
+style="width:100%;padding:12px;margin-bottom:18px;">
+
+<option value="tee">Tee</option>
+<option value="baby">Baby Tee</option>
+<option value="polo">Polo</option>
+<option value="bottom">Bottom</option>
+<option value="set">Set</option>
+
+</select>
+
+<button onclick="saveNewProduct()"
+style="padding:12px 18px;background:red;color:white;border:none;border-radius:8px;cursor:pointer;">
+
+ADD PRODUCT
+
+</button>
+
+<button onclick="closeAddProduct()"
+style="padding:12px 18px;margin-left:10px;">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="database.js"></script>
+</body>
+</html>
+</body>
+
+</html>

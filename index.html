@@ -1,263 +1,328 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-
-<title>SAVAGE</title>
-
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Savage Society</title>
 
-<!-- STREETWEAR STYLE FONT -->
-
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
 
-/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
-
-margin:0;
-
-font-family:Arial, sans-serif;
-
-background:black;
-
+background:#000;
+font-family:'Montserrat',sans-serif;
+overflow:hidden;
 }
 
+/* INTRO VIDEO */
 
-/* HEADER */
+#intro{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:black;
+z-index:10;
+}
 
-header{
+#intro video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
 
+/* LOGO SCREEN */
+
+#home{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
 background:black;
 
 display:flex;
-
-justify-content:space-between;
-
+flex-direction:column;
+justify-content:center;
 align-items:center;
 
-padding:18px 55px;
-
-position:fixed;
-
-top:0;
-
-width:100%;
-
-z-index:1000;
-
+opacity:0;
+transition:1.2s;
 }
-
-
-/* SAVAGE LOGO (BALANCED SIZE) */
 
 .logo{
+width:280px;
+max-width:70%;
+animation:pulse 3s infinite;
+}
 
-height:85px;
+@keyframes pulse{
+
+0%{transform:scale(1);}
+50%{transform:scale(1.03);}
+100%{transform:scale(1);}
 
 }
 
+#shopBtn{
 
-/* NAVIGATION */
+margin-top:50px;
 
-nav a{
-
-color:white;
-
-text-decoration:none;
-
-margin-left:30px;
-
-font-size:15px;
-
-letter-spacing:1px;
-
-}
-
-
-nav a:hover{
-
-color:red;
-
-}
-
-
-/* HERO SECTION */
-
-.hero{
-
-height:100vh;
-
-position:relative;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-text-align:center;
-
-}
-
-
-/* FULLSCREEN BACKGROUND */
-
-.hero-image{
-
-position:absolute;
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-object-position:center 20%;
-
-z-index:-2;
-
-}
-
-
-/* DARK OVERLAY FOR STYLE */
-
-.hero-overlay-dark{
-
-position:absolute;
-
-width:100%;
-
-height:100%;
-
-background:rgba(0,0,0,0.35);
-
-z-index:-1;
-
-}
-
-
-/* HERO TEXT */
-
-.hero-text{
-
-margin-top:70px;
-
-}
-
-
-.hero-text h1{
-
-font-family:'Oswald', sans-serif;
-
-color:black;
-
-font-size:75px;
-
-letter-spacing:6px;
-
-text-shadow:2px 2px 6px rgba(0,0,0,0.5);
-
-margin-bottom:30px;
-
-}
-
-
-/* BUTTON */
-
-.hero-text button{
-
-padding:16px 50px;
-
-font-size:16px;
-
-border:none;
+padding:18px 55px;
 
 background:red;
 
 color:white;
 
-cursor:pointer;
+text-decoration:none;
 
-letter-spacing:2px;
+font-size:18px;
 
-transition:0.3s;
+font-weight:bold;
+
+border-radius:40px;
+
+opacity:0;
+
+transform:translateY(30px);
+
+transition:0.8s;
 
 }
 
+#shopBtn:hover{
 
-.hero-text button:hover{
+background:#c40000;
 
-background:black;
-
-border:2px solid white;
+transform:translateY(25px) scale(1.05);
 
 }
 
 </style>
 
 </head>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <body>
+  <script>
 
+(function(){
 
-<!-- HEADER -->
+    const today = new Date().toDateString();
 
-<header>
+    let analytics = JSON.parse(localStorage.getItem("websiteAnalytics")) || {};
 
-<img src="savage-logo.png" class="logo">
+    if(analytics.lastVisit !== today){
 
-<nav>
+        analytics.lastVisit = today;
 
-<a href="index.html">HOME</a>
+        analytics.total = (analytics.total || 0) + 1;
+        analytics.today = (analytics.today || 0) + 1;
+        analytics.week = (analytics.week || 0) + 1;
+        analytics.month = (analytics.month || 0) + 1;
+        analytics.year = (analytics.year || 0) + 1;
 
-<a href="shop.html">SHOP</a>
+        localStorage.setItem(
+            "websiteAnalytics",
+            JSON.stringify(analytics)
+        );
 
-<a href="cart.html">CART</a>
+    }
 
-</nav>
+})();
 
-</header>
+</script>  
+<script>
+console.log("LOCK CHECK");
+console.log(localStorage.getItem("websiteLocked"));
 
+if (localStorage.getItem("websiteLocked") == "true") {
+    console.log("REDIRECTING...");
+    window.location.replace("locked.html");
+}
+</script>
 
-<!-- HERO SECTION -->
+</script>
+<div id="intro">
 
-<section class="hero">
+<video id="introVideo" autoplay muted playsinline>
 
-<img src="banners.png" class="hero-image">
+<source src="intro.mp4" type="video/mp4">
 
-<div class="hero-overlay-dark"></div>
-
-
-<div class="hero-text">
-
-<h1>
-
-STRICTLY SAVAGE SOCIETY
-
-</h1>
-
-
-<a href="shop.html">
-
-<button>
-
-SHOP NOW
-
-</button>
-
-</a>
-
+</video>
 
 </div>
 
-</section>
+<div id="home">
 
+<img src="logo.png" class="logo">
+
+<a href="shop.html" id="shopBtn">
+
+GO TO SHOP
+
+</a>
+
+</div>
+
+<script>
+
+const video=document.getElementById("introVideo");
+
+const intro=document.getElementById("intro");
+
+const home=document.getElementById("home");
+
+const btn=document.getElementById("shopBtn");
+
+video.onended=function(){
+
+intro.style.display="none";
+
+home.style.opacity="1";
+
+setTimeout(function(){
+
+btn.style.opacity="1";
+
+btn.style.transform="translateY(0px)";
+
+},800);
+
+}
+
+</script>
+<script>
+
+let currentProduct={};
+
+let currentFront="";
+let currentBack="";
+
+function openProduct(name,price,image,hasBack,colorOption){
+
+currentProduct={
+name:name,
+price:price,
+image:image
+};
+
+document.getElementById("popupName").innerHTML=name;
+
+document.getElementById("popupPrice").innerHTML=
+"₦"+price.toLocaleString();
+
+document.getElementById("popupImage").src=image;
+
+document.getElementById("productModal").style.display="flex";
+
+if(colorOption){
+
+document.getElementById("colorSection").style.display="block";
+
+}else{
+
+document.getElementById("colorSection").style.display="none";
+
+}
+
+if(hasBack){
+
+document.getElementById("imageSwitcher").style.display="flex";
+
+currentFront=image;
+
+if(image==="blackpolo.png"){
+
+currentBack="blackpoloback.png";
+
+}
+
+else if(image==="whitepolo.png"){
+
+currentBack="whitepoloback.png";
+
+}
+
+}else{
+
+document.getElementById("imageSwitcher").style.display="none";
+
+}
+
+}
+
+function closeModal(){
+
+document.getElementById("productModal").style.display="none";
+
+}
+
+function showFront(){
+
+document.getElementById("popupImage").src=currentFront;
+
+}
+
+function showBack(){
+
+document.getElementById("popupImage").src=currentBack;
+
+}
+
+window.onclick=function(event){
+
+const modal=document.getElementById("productModal");
+
+if(event.target===modal){
+
+closeModal();
+
+}
+
+};
+
+document.getElementById("popupCartBtn").onclick=function(){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+cart.push({
+
+name:currentProduct.name,
+
+price:currentProduct.price,
+
+image:currentProduct.image,
+
+size:document.getElementById("popupSize").value,
+
+color:document.getElementById("colorSection").style.display==="block"
+
+?document.getElementById("popupColor").value
+
+:""
+
+});
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+alert("Added to Cart ✅");
+
+closeModal();
+
+};
+
+</script>
+...
+
+<script src="supabase.js"></script>
 
 </body>
-
 </html>

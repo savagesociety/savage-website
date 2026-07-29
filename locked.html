@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SAVAGE | DROP COUNTDOWN</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+background:#000;
+
+color:white;
+
+font-family:Arial,Helvetica,sans-serif;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:100vh;
+
+text-align:center;
+
+padding:20px;
+
+}
+
+.container{
+
+max-width:700px;
+
+}
+
+.logo{
+
+width:130px;
+
+margin-bottom:25px;
+
+}
+
+h1{
+
+font-size:48px;
+
+letter-spacing:8px;
+
+margin-bottom:10px;
+
+}
+
+h2{
+
+font-size:20px;
+
+color:red;
+
+margin-bottom:25px;
+
+letter-spacing:3px;
+
+}
+
+p{
+
+color:#bbb;
+
+margin-bottom:40px;
+
+line-height:1.7;
+
+}
+
+.countdown{
+
+display:flex;
+
+justify-content:center;
+
+gap:18px;
+
+flex-wrap:wrap;
+
+margin-bottom:40px;
+
+}
+
+.time-box{
+
+background:#111;
+
+border:1px solid #333;
+
+padding:20px;
+
+min-width:90px;
+
+border-radius:12px;
+
+}
+
+.time-box h3{
+
+font-size:34px;
+
+color:red;
+
+}
+
+.time-box span{
+
+font-size:13px;
+
+letter-spacing:2px;
+
+color:white;
+
+}
+
+.notify{
+
+background:red;
+
+color:white;
+
+border:none;
+
+padding:15px 35px;
+
+font-size:17px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+.notify:hover{
+
+background:white;
+
+color:black;
+
+}
+
+.admin{
+
+margin-top:50px;
+
+font-size:13px;
+
+color:#555;
+
+cursor:pointer;
+
+}
+
+.admin:hover{
+
+color:white;
+
+}
+
+@media(max-width:600px){
+
+h1{
+
+font-size:32px;
+
+}
+
+.time-box{
+
+min-width:75px;
+
+padding:15px;
+
+}
+
+.time-box h3{
+
+font-size:28px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="logo.png" class="logo">
+
+<h1>SAVAGE</h1>
+
+<h2>DROP COMING SOON</h2>
+
+<p>
+
+The Savage website is temporarily locked while we prepare the next release.
+
+See you at the drop.
+
+</p>
+
+<div class="countdown">
+
+<div class="time-box">
+
+<h3 id="days">00</h3>
+
+<span>DAYS</span>
+
+</div>
+
+<div class="time-box">
+
+<h3 id="hours">00</h3>
+
+<span>HOURS</span>
+
+</div>
+
+<div class="time-box">
+
+<h3 id="minutes">00</h3>
+
+<span>MINUTES</span>
+
+</div>
+
+<div class="time-box">
+
+<h3 id="seconds">00</h3>
+
+<span>SECONDS</span>
+
+</div>
+
+</div>
+
+<button class="notify">
+
+JOIN THE SAVAGE SOCIETY
+
+</button>
+
+<div class="admin" id="adminAccess">
+
+Admin Access
+
+</div>
+
+<div
+id="adminLogin"
+style="
+display:none;
+margin-top:20px;
+">
+
+<input
+
+type="password"
+
+id="adminPassword"
+
+placeholder="Enter Password"
+
+style="
+padding:12px;
+width:260px;
+border:none;
+border-radius:8px;
+">
+
+<br><br>
+
+<button id="enterWebsite">
+
+ENTER
+
+</button>
+
+<p
+id="adminError"
+style="
+color:red;
+margin-top:12px;
+">
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+const savedDate = localStorage.getItem("launchDate");
+
+const launchDate = savedDate
+? new Date(savedDate).getTime()
+: new Date("August 1, 2026 00:00:00").getTime();
+
+setInterval(function(){
+
+const now=new Date().getTime();
+
+const distance=launchDate-now;
+if (distance <= 0) {
+
+document.getElementById("days").innerHTML = "00";
+document.getElementById("hours").innerHTML = "00";
+document.getElementById("minutes").innerHTML = "00";
+document.getElementById("seconds").innerHTML = "00";
+
+return;
+
+}
+const days=Math.floor(distance/(1000*60*60*24));
+
+const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+
+const minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+
+const seconds=Math.floor((distance%(1000*60))/1000);
+
+document.getElementById("days").innerHTML=days;
+
+document.getElementById("hours").innerHTML=hours;
+
+document.getElementById("minutes").innerHTML=minutes;
+
+document.getElementById("seconds").innerHTML=seconds;
+
+},1000);
+document.getElementById("adminAccess").onclick=function(){
+
+document.getElementById("adminLogin").style.display="block";
+
+}
+
+document.getElementById("enterWebsite").onclick=function(){
+
+const pass=
+
+document.getElementById("adminPassword").value;
+if (pass.trim().toLowerCase() === "latoya") {
+
+    localStorage.setItem("adminBypass", "true");
+
+    localStorage.setItem("websiteLocked", "false");
+
+    window.location.href = "index.html";
+
+}
+
+document.getElementById("adminError").innerHTML=
+
+"Incorrect Password";
+
+}
+
+
+</script>
+
+</body>
+
+</html>

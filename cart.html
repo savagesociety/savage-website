@@ -205,7 +205,98 @@ background:black;
 border:2px solid white;
 
 }
+.quantity-controls{
 
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+margin-top:12px;
+
+}
+
+.quantity-controls button{
+
+width:32px;
+
+height:32px;
+
+background:red;
+
+color:white;
+
+border:none;
+
+cursor:pointer;
+
+font-size:18px;
+
+font-weight:bold;
+
+}
+
+.quantity-controls span{
+
+font-weight:bold;
+
+min-width:20px;
+
+text-align:center;
+
+}
+.empty-cart{
+
+text-align:center;
+
+padding:60px 20px;
+
+}
+
+.empty-cart h2{
+
+font-family:'Oswald';
+
+letter-spacing:2px;
+
+margin-bottom:20px;
+
+}
+
+.empty-cart p{
+
+color:#ccc;
+
+margin-bottom:30px;
+
+}
+
+.continue-btn{
+
+display:inline-block;
+
+padding:15px 35px;
+
+background:red;
+
+color:white;
+
+text-decoration:none;
+
+font-weight:bold;
+
+letter-spacing:1px;
+
+}
+
+.continue-btn:hover{
+
+background:black;
+
+border:2px solid white;
+
+}
 </style>
 
 </head>
@@ -213,7 +304,23 @@ border:2px solid white;
 
 
 <body>
+<script>
 
+if(
+
+localStorage.getItem("websiteLocked")==="true"
+
+&&
+
+localStorage.getItem("adminBypass")!=="true"
+
+){
+
+window.location.href="locked.html";
+
+}
+
+</script>
 
 
 <header>
@@ -236,12 +343,11 @@ border:2px solid white;
 
 
 
-<div class="cart-title">
+<div class="cart-title" id="cart-title">
 
-YOUR CART
+YOUR CART (0 ITEMS)
 
 </div>
-
 
 
 <div class="cart-container" id="cart-container">
@@ -261,7 +367,11 @@ TOTAL: ₦0
 <button class="checkout-btn" onclick="goToCheckout()">
 
 PROCEED TO CHECKOUT
+<button class="checkout-btn" id="clearCartBtn" onclick="clearCart()">
 
+CLEAR CART
+
+</button>
 </button>
 
 
@@ -274,16 +384,82 @@ let container = document.getElementById("cart-container");
 
 let total = 0;
 
+const exchangeRate =
+parseFloat(
+localStorage.getItem("exchangeRate")
+) || 1600;
 
+let currentCurrency = localStorage.getItem("currency") || "NGN";
+
+function formatPrice(price){
+
+if(currentCurrency==="USD"){
+
+return "$"+(price/exchangeRate).toFixed(2);
+
+}
+
+return "₦"+price.toLocaleString();
+
+}
+
+function changeQuantity(index,amount){
+
+if(!cart[index].quantity){
+
+cart[index].quantity=1;
+
+}
+
+cart[index].quantity+=amount;
+
+if(cart[index].quantity<1){
+
+cart[index].quantity=1;
+
+}
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+renderCart();
+
+}
 function renderCart(){
 
 container.innerHTML="";
+total = 0;
+if(cart.length===0){
 
+container.innerHTML=`
 
+<div class="empty-cart">
+
+<h2>Your cart is empty</h2>
+
+<p>Add something from the Savage collection.</p>
+
+<a href="shop.html" class="continue-btn">
+
+CONTINUE SHOPPING
+
+</a>
+
+</div>
+
+`;
+
+document.getElementById("total-price").innerHTML="TOTAL: "+formatPrice(0);
+
+document.getElementById("cart-title").innerHTML="YOUR CART (EMPTY)";
+
+return;
+
+}
 cart.forEach((item,index)=>{
 
-total += item.price;
+const quantity=item.quantity||1;
 
+total+=item.price*quantity;
 
 container.innerHTML += `
 
@@ -297,7 +473,17 @@ container.innerHTML += `
 
 <p>Size: ${item.size}</p>
 
-<p>₦${item.price}</p>
+<p>${formatPrice(item.price)}</p>
+
+<div class="quantity-controls">
+
+<button onclick="changeQuantity(${index},-1)">−</button>
+
+<span>${item.quantity || 1}</span>
+
+<button onclick="changeQuantity(${index},1)">+</button>
+
+</div>
 
 </div>
 
@@ -313,10 +499,28 @@ REMOVE
 
 });
 
+let itemCount=0;
 
+cart.forEach(item=>{
+
+itemCount+=item.quantity||1;
+
+});
+
+document.getElementById("cart-title").innerHTML=
+
+itemCount===0
+
+?
+
+"YOUR CART (EMPTY)"
+
+:
+
+`YOUR CART (${itemCount} ITEMS)`;
 document.getElementById("total-price").innerText =
 
-"TOTAL: ₦" + total;
+"TOTAL: " + formatPrice(total);
 
 }
 
@@ -331,7 +535,19 @@ location.reload();
 
 }
 
+function clearCart(){
 
+if(confirm("Are you sure you want to clear your cart?")){
+
+cart=[];
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+renderCart();
+
+}
+
+}
 function goToCheckout(){
 
 window.location.href="checkout.html";
