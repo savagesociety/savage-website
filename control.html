@@ -514,13 +514,7 @@ if(sessionStorage.getItem("adminLoggedIn") !== "true"){
 
 </script>
 
-<h3>⏳ Countdown Settings</h3>
 
-<input type="datetime-local" id="countdownDate">
-
-<button onclick="saveCountdown()">
-Save Countdown
-</button>
 <header>
 
 <img src="logo.png" class="logo">
@@ -594,7 +588,11 @@ Save Countdown
 <p>Edit shipping prices.</p>
 
 </div>
+<input type="datetime-local" id="launchDateInput">
 
+<button onclick="saveLaunchDate()">
+SAVE COUNTDOWN
+</button>
 
 
 <div class="card" id="exchangeCard">
@@ -1960,83 +1958,85 @@ menu.style.display==="block"
 
 }
 
-function hideProduct(index){
+async function hideProduct(index){
 
-products[index].hidden=true;
+products[index].hidden = true;
 
-saveProducts();
+await updateProduct(products[index].id,{
+    hidden:true
+});
+}
+renderProducts();
+
+async function makeLive(index){
+
+products[index].hidden = false;
+
+await updateProduct(products[index].id,{
+    hidden:false
+});
 
 renderProducts();
 
 }
 
-function makeLive(index){
 
-products[index].hidden=false;
-
-saveProducts();
-
-renderProducts();
-
-}
-
-function deleteProduct(index){
+async function deleteProduct(index){
 
 if(confirm("Delete "+products[index].name+" ?")){
 
+await deleteProductDB(products[index].id);
+
 products.splice(index,1);
 
-saveProducts();
-
 renderProducts();
 
 }
 
 }
 
-function restockProduct(index){
 
-let amount=prompt(
+async function restockProduct(index){
 
+let amount = prompt(
 "Enter new stock",
-
 products[index].stock
-
 );
 
-if(amount===null)return;
+if(amount===null) return;
 
-amount=Number(amount);
+amount = Number(amount);
 
-if(isNaN(amount)||amount<0)return;
+if(isNaN(amount)||amount<0) return;
 
-products[index].stock=amount;
+products[index].stock = amount;
 
-saveProducts();
+await updateProduct(products[index].id,{
+    stock:amount
+});
 
 renderProducts();
 
 }
 
-function changePrice(index){
+async function changePrice(index){
 
-let price=prompt(
-
+let price = prompt(
 "Enter new price",
-
 products[index].price
-
 );
 
-if(price===null)return;
+if(price===null) return;
 
-price=Number(price);
+price = Number(price);
 
-if(isNaN(price)||price<0)return;
+if(isNaN(price)||price<0) return;
 
-products[index].price=price;
+products[index].price = price;
 
-saveProducts();
+await updateProduct(products[index].id,{
+    price:price
+});
 
 renderProducts();
 
@@ -2068,144 +2068,17 @@ updateWebsiteAnalytics();
 // PRODUCT DATABASE
 // ================================
 
-let products = JSON.parse(localStorage.getItem("products")) || [
+let products = [];
 
-{
-id:1,
-name:"Black Savage Tee",
-image:"blacktee.png",
-price:20000,
-stock:0,
-hidden:false
-},
+async function loadProductsControl(){
 
-{
-id:2,
-name:"Red Savage Tee",
-image:"redtee.png",
-price:20000,
-stock:0,
-hidden:false
-},
+products = await loadProducts();
 
-{
-id:3,
-name:"Society Tee",
-image:"societyteev1.png",
-price:20000,
-stock:0,
-hidden:false
-},
+renderProducts();
 
-{
-id:4,
-name:"Society Tee V2",
-image:"societyteev2.png",
-price:20000,
-stock:0,
-hidden:false
-},
-
-{
-id:5,
-name:"Black Baby Tee",
-image:"blackbabytee.png",
-price:25000,
-stock:0,
-hidden:false
-},
-
-{
-id:6,
-name:"Red Baby Tee",
-image:"redbabytee.png",
-price:25000,
-stock:0,
-hidden:false
-},
-
-{
-id:7,
-name:"Baby Tee Full Set",
-image:"babyteefullset.png",
-price:38000,
-stock:0,
-hidden:false
-},
-
-{
-id:8,
-name:"Savage Shorts",
-image:"shorts.png",
-price:13000,
-stock:0,
-hidden:false
-},
-
-{
-id:9,
-name:"Black Polo",
-image:"blackpolo.png",
-price:55000,
-stock:0,
-hidden:false
-},
-
-{
-id:10,
-name:"White Polo",
-image:"whitepolo.png",
-price:55000,
-stock:0,
-hidden:false
-},
-
-{
-id:11,
-name:"Track Jacket",
-image:"trackjacket.png",
-price:60000,
-stock:0,
-hidden:false
-},
-
-{
-id:12,
-name:"Sweatpants V1",
-image:"sweatpantsv1.png",
-price:40000,
-stock:0,
-hidden:false
-},
-
-{
-id:15,
-name:"Track Pants",
-image:"trackpants.png",
-price:50000,
-stock:0,
-hidden:false
-},
-
-{
-id:13,
-name:"Sweatpants V2",
-image:"sweatpantsv2.png",
-price:40000,
-stock:0,
-hidden:false
-},
-
-{
-id:14,
-name:"Tracksuit",
-image:"savagetrack.png",
-price:110000,
-stock:0,
-hidden:false
 }
 
-];
+loadProductsControl();
 
 function saveProducts(){
 
