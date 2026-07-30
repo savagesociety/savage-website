@@ -1054,6 +1054,7 @@ ADD TO CART
 
 
 </div>
+
 <script>
 
 let currentProduct = {};
@@ -1541,9 +1542,9 @@ setTimeout(updateCartCount,100);
 // LOAD PRODUCTS FROM CONTROL PANEL
 // ================================
 
-function loadProductsFromControlPanel(){
+async function loadProductsFromControlPanel(){
 
-    const products = JSON.parse(localStorage.getItem("products")) || [];
+    const products = await loadProducts();
 
     const grid = document.querySelector(".products");
 
@@ -1661,14 +1662,12 @@ z-index:2;
 }
 
 loadProductsFromControlPanel();
-
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script
+ src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-<script src="database.js"></script>
+<script src="database.js"></script> 
+
 </body>
 </html>
-</body>
-
-</html>
-
